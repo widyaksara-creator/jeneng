@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BUAT NAMA JAWA — Generator Nama Jawa (Full Offline)</title>
+  <style>
+    /* ==========================================================================
+       VARIABEL WARNA & ESTETIKA KLASIK JAWA (SOGAN, PRADA EMAS, DLUWANG)
+       100% Embedded CSS - Tanpa ketergantungan font atau framework eksternal
+       ========================================================================== */
+    :root {
+      --bg-dluwang: #F7F2E7;
+      --bg-card: #FFFDF9;
+      --bg-subtle: #EFE6D5;
+      --sogan-dark: #2C1A11;
+      --sogan-primary: #4A2C1D;
+      --sogan-medium: #6D442E;
+      --sogan-muted: #8C6A56;
+      --prada-gold: #B8860B;
+      --prada-light: #D4AF37;
+      --prada-bg: rgba(184, 134, 11, 0.11);
+      --border-kawung: #DECDB7;
+      --success-green: #2E5A36;
+      --success-bg: #E6F0E8;
+      --danger-red: #8B2626;
+      --shadow-soft: 0 6px 24px rgba(44, 26, 17, 0.08);
+      --shadow-card: 0 2px 10px rgba(44, 26, 17, 0.05);
+      --font-serif: Georgia, 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dluwang);
+      /* Pola tekstur halus serat kertas manuskrip / kawung geometris murni CSS */
+      background-image:
+        radial-gradient(rgba(184, 134, 11, 0.07) 1px, transparent 1px),
+        radial-gradient(rgba(74, 44, 29, 0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+      color: var(--sogan-dark);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ==========================================================================
+       HEADER & ORNAMEN GUNUNGAN / PRADA
+       ========================================================================== */
+    header {
+      background: linear-gradient(160deg, var(--sogan-dark) 0%, var(--sogan-primary) 65%, #5C3622 100%);
+      color: #FDF8EE;
+      padding: 1.75rem 1.25rem 2rem;
+      text-align: center;
+      border-bottom: 4px solid var(--prada-gold);
+      position: relative;
+      box-shadow: 0 4px 18px rgba(44, 26, 17, 0.22);
+    }
+
+    .offline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 253, 249, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      color: #F6E299;
+      padding: 0.32rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.85rem;
+    }
+
+    .offline-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #6EE7B7;
+      box-shadow: 0 0 8px #6EE7B7;
+      display: inline-block;
+    }
+
+    header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.55rem);
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: #FFFDF8;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      margin-bottom: 0.35rem;
+    }
+
+    header p.subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: #EBD8BE;
+      font-size: clamp(0.92rem, 2.2vw, 1.08rem);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .ornament-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+      color: var(--prada-light);
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .ornament-line {
+      height: 1px;
+      width: 60px;
+      background: linear-gradient(90deg, transparent, var(--prada-light), transparent);
+    }
+
+    /* ==========================================================================
+       NAVIGASI TAB UTAMA
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
+      flex: 1;
+    }
+
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      padding: 0.45rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-kawung);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 1.5rem;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 150px;
+      padding: 0.75rem 1rem;
+      border: none;
+      background: transparent;
+      color: var(--sogan-medium);
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+    }
+
+    .tab-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--sogan-dark);
+    }
+
+    .tab-btn.active {
+      background: var(--sogan-primary);
+      color: #FFFDF9;
+      box-shadow: 0 2px 8px rgba(74, 44, 29, 0.25);
+    }
+
+    .badge-count {
+      background: rgba(212, 175, 55, 0.25);
+      color: inherit;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.28s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       PANEL KONTROL / FILTER GENERATOR
+       ========================================================================== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-kawung);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-kawung);
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: var(--sogan-primary);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.38rem;
+    }
+
+    .form-group label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--sogan-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.68rem 0.85rem;
+      border-radius: var(--radius-md);
+      border: 1px solid #CBB69C;
+      background-color: #FFFEFA;
+      color: var(--sogan-dark);
+      font-size: 0.94rem;
+      font-family: var(--font-sans);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--prada-gold);
+      box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.16);
+    }
+
+    .custom-word-box {
+      background: var(--bg-subtle);
+      border: 1px dashed #BFA78A;
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .custom-word-row {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.45rem;
+    }
+
+    @media (max-width: 600px) {
+      .custom-word-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 0.95rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--sogan-primary) 0%, #683D26 100%);
+      color: #FFFDF8;
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(74, 44, 29, 0.28);
+      border-bottom: 3px solid var(--prada-gold);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(74, 44, 29, 0.35);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    /* ==========================================================================
+       HASIL NAMA UTAMA YANG DISARANKAN
+       ========================================================================== */
+    .main-result-card {
+      background: linear-gradient(180deg, #FFFDF8 0%, #FAF3E4 100%);
+      border: 2px solid var(--prada-gold);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.4rem;
+      box-shadow: 0 10px 30px rgba(74, 44, 29, 0.12);
+      margin-bottom: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-result-card::before {
+      content: "❖ REKOMENDASI UTAMA PUSTAKA JAWA ❖";
+      display: block;
+      text-align: center;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--prada-gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .recommended-name-display {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 5vw, 2.85rem);
+      font-weight: 700;
+      color: var(--sogan-dark);
+      letter-spacing: 0.03em;
+      margin-bottom: 0.35rem;
+      line-height: 1.25;
+    }
+
+    /* Tampilan Aksara Jawa (Paugeran Simplified KAJ I 2021 - Scripto Continua) */
+    .aksara-main-box {
+      text-align: center;
+      margin: 0.45rem auto 0.9rem;
+      padding: 0.65rem 1.25rem;
+      background: rgba(184, 134, 11, 0.08);
+      border: 1px dashed rgba(184, 134, 11, 0.45);
+      border-radius: var(--radius-md);
+      max-width: 92%;
+    }
+
+    .aksara-jawa-main {
+      font-family: 'Noto Sans Javanese', 'Javanese Text', 'Tuladha Jejeg', var(--font-serif);
+      font-size: clamp(1.45rem, 3.8vw, 2.15rem);
+      color: var(--sogan-primary);
+      line-height: 1.85;
+      letter-spacing: 0;
+      word-break: break-word;
+    }
+
+    .aksara-caption {
+      font-size: 0.72rem;
+      color: var(--sogan-muted);
+      letter-spacing: 0.04em;
+      margin-top: 0.15rem;
+    }
+
+    .aksara-word-sub {
+      font-family: 'Noto Sans Javanese', 'Javanese Text', 'Tuladha Jejeg', var(--font-serif);
+      font-size: 1.18rem;
+      color: var(--sogan-medium);
+      line-height: 1.7;
+      margin-bottom: 0.35rem;
+    }
+
+    .aksara-alt {
+      font-family: 'Noto Sans Javanese', 'Javanese Text', 'Tuladha Jejeg', var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--sogan-primary);
+      line-height: 1.75;
+      margin-bottom: 0.5rem;
+      padding: 0.3rem 0.55rem;
+      background: rgba(184, 134, 11, 0.07);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--prada-gold);
+      word-break: break-word;
+    }
+
+    .recommended-meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.26rem 0.72rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--prada-bg);
+      color: var(--sogan-primary);
+      border: 1px solid rgba(184, 134, 11, 0.3);
+    }
+
+    /* Rincian 3 Kata */
+    .word-breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.9rem;
+      margin-bottom: 1.35rem;
+    }
+
+    @media (max-width: 768px) {
+      .word-breakdown-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .word-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-kawung);
+      border-top: 3px solid var(--sogan-medium);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .word-position {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--sogan-muted);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .word-term {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--sogan-dark);
+      margin-bottom: 0.35rem;
+    }
+
+    .word-meaning {
+      font-size: 0.91rem;
+      color: #3D2B1F;
+      margin-bottom: 0.65rem;
+      line-height: 1.48;
+    }
+
+    .word-source {
+      font-size: 0.75rem;
+      color: var(--prada-gold);
+      font-weight: 600;
+      background: #FAF5EA;
+      padding: 0.3rem 0.55rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid #EFE2C6;
+    }
+
+    /* Kotak Filosofi / Rangkaian Makna Doa */
+    .philosophy-box {
+      background: var(--sogan-dark);
+      color: #FDF7EC;
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.35rem;
+      border-left: 5px solid var(--prada-light);
+      margin-bottom: 1.2rem;
+    }
+
+    .philosophy-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--prada-light);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .philosophy-text {
+      font-family: var(--font-serif);
+      font-size: 1.06rem;
+      line-height: 1.65;
+      color: #FFFDF8;
+    }
+
+    .action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      justify-content: center;
+    }
+
+    .btn-secondary {
+      padding: 0.62rem 1.1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--sogan-medium);
+      background: #FFFFFF;
+      color: var(--sogan-primary);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-subtle);
+    }
+
+    .btn-gold {
+      padding: 0.62rem 1.15rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--prada-gold);
+      background: var(--prada-gold);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-gold:hover {
+      background: #9E7208;
+    }
+
+    /* ==========================================================================
+       DAFTAR ALTERNATIF NAMA (4 - 5 SARAN TAMBAHAN)
+       ========================================================================== */
+    .alternatives-section-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: var(--sogan-primary);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .alternatives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1rem;
+    }
+
+    .alt-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-kawung);
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+
+    .alt-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--prada-gold);
+    }
+
+    .alt-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--sogan-dark);
+      margin-bottom: 0.45rem;
+    }
+
+    .alt-breakdown {
+      font-size: 0.82rem;
+      color: var(--sogan-medium);
+      background: var(--bg-subtle);
+      padding: 0.5rem 0.65rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.65rem;
+      line-height: 1.45;
+    }
+
+    .alt-meaning {
+      font-size: 0.9rem;
+      color: #3B281C;
+      font-style: italic;
+      margin-bottom: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .alt-actions {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-kawung);
+      padding-top: 0.75rem;
+    }
+
+    .btn-sm {
+      padding: 0.42rem 0.72rem;
+      font-size: 0.8rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid #CBB69C;
+      background: #FFFDF9;
+      color: var(--sogan-primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-sm:hover {
+      background: var(--bg-subtle);
+    }
+
+    /* ==========================================================================
+       GLOSARIUM / KAMUS PUSTAKA TERVALIDASI
+       ========================================================================== */
+    .glossary-filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.15rem;
+    }
+
+    @media (max-width: 700px) {
+      .glossary-filters {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .glossary-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      gap: 0.85rem;
+      max-height: 620px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .lexicon-item {
+      background: #FFFEFA;
+      border: 1px solid var(--border-kawung);
+      border-radius: var(--radius-md);
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .lexicon-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .lexicon-word {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--sogan-dark);
+    }
+
+    .lexicon-gender {
+      font-size: 0.72rem;
+      padding: 0.16rem 0.5rem;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      color: var(--sogan-primary);
+      font-weight: 700;
+    }
+
+    .lexicon-meaning {
+      font-size: 0.88rem;
+      color: #3D2B1F;
+      margin-bottom: 0.55rem;
+    }
+
+    .lexicon-footer {
+      font-size: 0.73rem;
+      color: var(--prada-gold);
+      font-weight: 600;
+      border-top: 1px dashed var(--border-kawung);
+      padding-top: 0.4rem;
+    }
+
+    /* ==========================================================================
+       DAFTAR FAVORIT (LOCALSTORAGE)
+       ========================================================================== */
+    .fav-empty {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--sogan-muted);
+      font-style: italic;
+    }
+
+    .fav-item {
+      background: #FFFEFA;
+      border: 1px solid var(--border-kawung);
+      border-left: 4px solid var(--prada-gold);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      margin-bottom: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-danger {
+      border-color: #E2B4B4;
+      color: var(--danger-red);
+      background: #FFF6F6;
+    }
+
+    .btn-danger:hover {
+      background: #FDE8E8;
+    }
+
+    /* ==========================================================================
+       TOAST NOTIFICATION (PENGGANTI ALERT)
+       ========================================================================== */
+    .toast-container {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .toast {
+      background: var(--sogan-dark);
+      color: #FFFDF8;
+      border-left: 4px solid var(--prada-light);
+      padding: 0.8rem 1.15rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      font-size: 0.9rem;
+      font-weight: 500;
+      animation: slideIn 0.25s ease;
+      max-width: 340px;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(25px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.25rem 1rem;
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border-kawung);
+      color: var(--sogan-medium);
+      font-size: 0.82rem;
+    }
+
+    /* ==========================================================================
+       ATURAN CETAK & SIMPAN PDF (@MEDIA PRINT) - FULL OFFLINE
+       ========================================================================== */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        background-image: none !important;
+        color: #1A110B !important;
+      }
+
+      header {
+        background: #FFFDF8 !important;
+        color: #2C1A11 !important;
+        border-bottom: 2px solid #B8860B !important;
+        box-shadow: none !important;
+        padding: 1rem 0 !important;
+      }
+
+      header h1 {
+        color: #2C1A11 !important;
+        text-shadow: none !important;
+      }
+
+      header p.subtitle,
+      .ornament-divider {
+        color: #4A2C1D !important;
+      }
+
+      .offline-badge,
+      .nav-tabs,
+      #tab-generator > .card,
+      .action-bar,
+      .alt-actions,
+      .glossary-filters,
+      .fav-actions-bar,
+      .fav-item-actions,
+      .toast-container,
+      footer {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100% !important;
+        padding: 0.5rem 0 !important;
+      }
+
+      .main-result-card,
+      .card,
+      .alt-card,
+      .fav-item,
+      .word-box {
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .philosophy-box {
+        background: #FAF5EA !important;
+        color: #2C1A11 !important;
+        border: 1px solid #B8860B !important;
+        border-left: 5px solid #B8860B !important;
+      }
+
+      .philosophy-label {
+        color: #6D442E !important;
+      }
+
+      .philosophy-text {
+        color: #2C1A11 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER UTAMA -->
+  <header>
+    <div class="offline-badge" title="Aplikasi berjalan penuh di peramban tanpa memerlukan koneksi internet">
+      <span class="offline-dot"></span>
+      Mas Lurah Dwija Prasetya Prasaja
+    </div>
+    <h1>BUAT NAMA JAWA</h1>
+    <p class="subtitle">
+      ꧄ꦲꦱ꧀ꦩꦏꦶꦤꦂꦪꦗꦥ꧄
+    </p>
+    <div class="ornament-divider">
+      <span class="ornament-line"></span>
+      <span>❖ Asma Kinarya Japa — Nama adalah Untaian Doa ❖</span>
+      <span class="ornament-line"></span>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- NAVIGASI TAB -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="generator" role="tab" aria-selected="true">
+        ✦ Rangkai Nama
+      </button>
+      <button class="tab-btn" data-tab="glossary" role="tab" aria-selected="false">
+        📖 Pustaka Jawa <span class="badge-count" id="glossary-count-badge"></span>
+      </button>
+      <button class="tab-btn" data-tab="favorites" role="tab" aria-selected="false">
+        ★ Nama Tersimpan <span class="badge-count" id="fav-count-badge">0</span>
+      </button>
+    </nav>
+
+    <!-- ======================================================================
+         TAB 1: GENERATOR NAMA JAWA 3 KATA
+         ====================================================================== -->
+    <section id="tab-generator" class="tab-panel active">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">⚙ Pengaturan Rangkaian Nama</h2>
+          <span style="font-size: 0.82rem; color: var(--sogan-muted);">Struktur: Nama Depan • Nama Tengah • Nama Akhir/Harapan</span>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="filter-gender">Jenis Kelamin (Gender)</label>
+            <select id="filter-gender" class="form-control">
+              <option value="all">Semua (Kakung, Putri &amp; Netral)</option>
+              <option value="kakung">Laki-laki (Kakung)</option>
+              <option value="putri">Perempuan (Putri)</option>
+              <option value="netral">Netral / Uniseks</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="filter-theme">Nuansa &amp; Doa Utama</label>
+            <select id="filter-theme" class="form-control">
+              <option value="all">Harmoni Semesta (Semua Nuansa)</option>
+              <option value="kebijaksanaan">Kebijaksanaan &amp; Ilmu (Kawruh / Wicaksana)</option>
+              <option value="kepemimpinan">Keberanian &amp; Kepemimpinan (Satriya / Wira)</option>
+              <option value="keindahan">Keindahan, Cahaya &amp; Seni (Endah / Praba)</option>
+              <option value="kesejahteraan">Kesejahteraan &amp; Kemuliaan (Rahayu / Mulia)</option>
+              <option value="keteguhan">Keteguhan, Kesetiaan &amp; Budi (Teguh / Satya)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="filter-source">Sumber Pustaka &amp; Serapan Bahasa</label>
+            <select id="filter-source" class="form-control">
+              <option value="all">Harmoni Nusantara (Semua Khazanah)</option>
+              <option value="kuno">Kamus Jawa Kuno &amp; Sanskerta (Zoetmulder)</option>
+              <option value="bausastra">Bausastra Jawa (Poerwadarminta)</option>
+              <option value="arab">Adopsi &amp; Adaptasi Arab – Jawa</option>
+              <option value="eropa">Adopsi &amp; Adaptasi Eropa – Jawa</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Sisipan Kata Pilihan Sendiri (Opsional) -->
+        <div class="custom-word-box">
+          <label for="custom-word-input" style="font-size: 0.84rem; font-weight: 700; color: var(--sogan-primary); display: block;">
+            Sisipkan Kata Pilihan Sendiri / Nama Keluarga (Opsional — arti dirangkai otomatis dari pustaka leksikon):
+          </label>
+          <div class="custom-word-row">
+            <input
+              type="text"
+              id="custom-word-input"
+              class="form-control"
+              placeholder="Contoh: Bagas, Sekar, Wijaya, Kartika, atau nama keluarga..."
+              maxlength="28"
+            />
+            <select id="custom-word-pos" class="form-control">
+              <option value="0">Letakkan di Kata 1 (Depan)</option>
+              <option value="1">Letakkan di Kata 2 (Tengah)</option>
+              <option value="2">Letakkan di Kata 3 (Belakang)</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-generate" class="btn-primary" type="button">
+          ✦ Rangkai Nama Utama &amp; Alternatif
+        </button>
+      </div>
+
+      <!-- HASIL NAMA UTAMA YANG DISARANKAN -->
+      <div id="result-area">
+        <article class="main-result-card" aria-live="polite">
+          <div class="recommended-name-display" id="main-full-name">
+            Dananjaya Wicaksana Raharja
+          </div>
+          <div class="aksara-main-box">
+            <div class="aksara-jawa-main" id="main-aksara-jawa">
+              ꦢꦤꦚ꧀ꦗꦪꦮꦶꦕꦏ꧀ꦱꦤꦫꦲꦂꦗ
+            </div>
+            <div class="aksara-caption">
+              Aksara Jawa • Paugeran Simplified KAJ I Yogyakarta 2021 (<em>Scripto Continua</em>)
+            </div>
+          </div>
+          <div class="recommended-meta" id="main-meta-pills">
+            <!-- Diisi otomatis oleh JavaScript -->
+          </div>
+
+          <!-- Rincian 3 Kata -->
+          <div class="word-breakdown-grid" id="main-word-breakdown">
+            <!-- Kartu Kata 1, 2, 3 diisi oleh JS -->
+          </div>
+
+          <!-- Rangkaian Makna / Filosofi Doa -->
+          <div class="philosophy-box">
+            <div class="philosophy-label">❖ Rangkaian Makna &amp; Doa Utama</div>
+            <p class="philosophy-text" id="main-philosophy-text">
+              <!-- Sintesis makna diisi oleh JS -->
+            </p>
+          </div>
+
+          <!-- Tombol Aksi Nama Utama -->
+          <div class="action-bar">
+            <button type="button" class="btn-gold" id="btn-save-main">
+              ★ Simpan ke Favorit
+            </button>
+            <button type="button" class="btn-secondary" id="btn-copy-main">
+              📋 Salin Nama &amp; Artinya
+            </button>
+            <button type="button" class="btn-secondary" id="btn-print-main">
+              🖨 Simpan PDF / Print
+            </button>
+            <button type="button" class="btn-secondary" id="btn-regenerate">
+              ↻ Acak Rangkaian Baru
+            </button>
+          </div>
+        </article>
+
+        <!-- DAFTAR ALTERNATIF NAMA (5 PILIHAN SENADA) -->
+        <div>
+          <h3 class="alternatives-section-title">
+            ❖ ꦩꦸꦒꦶꦫꦲꦪꦸꦱꦒꦸꦁꦢꦸꦩꦢꦶ꧈ꦫꦲꦪꦸ
+          </h3>
+          <div class="alternatives-grid" id="alternatives-grid">
+            <!-- 5 Kartu Alternatif diisi oleh JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 2: KAMUS / GLOSARIUM PUSTAKA TERVALIDASI
+         ====================================================================== -->
+    <section id="tab-glossary" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">📖 Glosarium Leksikon Bausastra &amp; Jawa Kuno</h2>
+          <span style="font-size: 0.82rem; color: var(--sogan-muted);">Telusuri seluruh kosakata tervalidasi yang tertanam</span>
+        </div>
+
+        <div class="glossary-filters">
+          <input
+            type="search"
+            id="glossary-search"
+            class="form-control"
+            placeholder="Cari kata Jawa atau artinya (misal: cahaya, bijaksana, satriya, sekar)..."
+          />
+          <select id="glossary-gender-filter" class="form-control">
+            <option value="all">Semua Gender</option>
+            <option value="kakung">Kakung (Laki-laki)</option>
+            <option value="putri">Putri (Perempuan)</option>
+            <option value="netral">Netral / Uniseks</option>
+          </select>
+          <select id="glossary-source-filter" class="form-control">
+            <option value="all">Semua Sumber &amp; Serapan</option>
+            <option value="kuno">Kamus Jawa Kuno &amp; Sanskerta (Zoetmulder)</option>
+            <option value="bausastra">Bausastra Jawa (Poerwadarminta)</option>
+            <option value="arab">Adopsi &amp; Adaptasi Arab – Jawa</option>
+            <option value="eropa">Adopsi &amp; Adaptasi Eropa – Jawa</option>
+          </select>
+        </div>
+
+        <p id="glossary-result-info" style="font-size: 0.84rem; color: var(--sogan-muted); margin-bottom: 0.85rem;"></p>
+
+        <div class="glossary-list" id="glossary-list">
+          <!-- Daftar kosakata diisi oleh JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 3: DAFTAR NAMA FAVORIT (LOCALSTORAGE)
+         ====================================================================== -->
+    <section id="tab-favorites" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">★ Daftar Nama Tersimpan (Lokal)</h2>
+          <div class="fav-actions-bar" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn-secondary" id="btn-print-favs">
+              🖨 Simpan PDF / Print
+            </button>
+            <button type="button" class="btn-secondary" id="btn-export-txt">
+              ⬇ Unduh (.TXT)
+            </button>
+            <button type="button" class="btn-secondary btn-danger" id="btn-clear-favs">
+              🗑 Hapus Semua
+            </button>
+          </div>
+        </div>
+
+        <div id="favorites-container">
+          <!-- Daftar nama favorit diisi oleh JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>BUAT NAMA JAWA</strong> • UNTUK KETURUNAN ANDA.<br />
+    Rujukan Leksikon: <em>Baoesastra Djawa</em> (W.J.S. Poerwadarminta, 1939), <em>Old Javanese-English Dictionary</em> (P.J. Zoetmulder, 1982), serta Khazanah Serapan Arab &amp; Eropa (Paugeran KAJ I 2021).
+  </footer>
+
+  <!-- Wadah Notifikasi Toast -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <script>
+    /**
+     * ============================================================================
+     * STATE GLOBAL, KONSTANTA LABEL, & UTILITAS OFFLINE
+     * ============================================================================
+     */
+    const STORAGE_KEY = "buat_nama_jawa_favs_v1";
+    let currentMainCombo = null;
+    let currentAlternatives = [];
+    let favorites = [];
+
+    const GENDER_LABELS = {
+      all: "Harmoni (Semua Gender)",
+      kakung: "Kakung (Laki-laki)",
+      putri: "Putri (Perempuan)",
+      netral: "Netral / Uniseks"
+    };
+
+    const THEME_LABELS = {
+      all: "Harmoni Semesta",
+      kebijaksanaan: "Kebijaksanaan & Ilmu",
+      kepemimpinan: "Keberanian & Kepemimpinan",
+      keindahan: "Keindahan, Cahaya & Seni",
+      kesejahteraan: "Kesejahteraan & Kemuliaan",
+      keteguhan: "Keteguhan, Kesetiaan & Budi"
+    };
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function capitalizeWord(str) {
+      return str
+        .split(/\s+/)
+        .map(w => (w ? w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() : ""))
+        .join(" ");
+    }
+
+    function showToast(message) {
+      const container = document.getElementById("toast-container");
+      if (!container) return;
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.25s ease";
+        setTimeout(() => toast.remove(), 260);
+      }, 2800);
+    }
+
+    function copyTextOffline(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        showToast("📋 Berhasil disalin ke papan klip!");
+      } catch (err) {
+        showToast("Gagal menyalin teks secara otomatis.");
+      }
+      document.body.removeChild(textarea);
+    }
+
+    /**
+     * ============================================================================
+     * TRANSLITERASI AKSARA JAWA (PAUGERAN SIMPLIFIED KAJ I YOGYAKARTA 2021)
+     * Mendukung Scripto Continua (penggabungan pasangan otomatis antarkata),
+     * pembedaan [e] pepet vs [e] taling, Pa Cerek (ꦉ), Nga Lelet (ꦊ),
+     * Aksara Mahaprana, Aksara Rekan (adopsi Arab), Diftong, serta akhiran -y/-ie.
+     * ============================================================================
+     */
+    const AKSARA_BASE = {
+      h: "ꦲ", n: "ꦤ", c: "ꦕ", r: "ꦫ", k: "ꦏ",
+      d: "ꦢ", t: "ꦠ", s: "ꦱ", w: "ꦮ", l: "ꦭ",
+      p: "ꦥ", dh: "ꦝ", j: "ꦗ", y: "ꦪ", ny: "ꦚ",
+      m: "ꦩ", g: "ꦒ", b: "ꦧ", th: "ꦛ", ng: "ꦔ"
+    };
+
+    const SANDHANGAN_VOWEL = {
+      a: "",
+      i: "ꦶ",
+      u: "ꦸ",
+      e: "ꦺ",
+      é: "ꦺ",
+      è: "ꦺ",
+      ê: "ꦼ",
+      o: "ꦺꦴ"
+    };
+
+    // Kamus Pemetaan Ortografi Khusus (KAJ I 2021 + Pedoman Khusus Nama)
+    // Bentuk dasar (ending dengan sigeg masih memakai pangkon/layar/wignyan/cecak)
+    // agar saat digabung dalam Scripto Continua dapat melebur otomatis ke kata berikutnya.
+    const SPECIAL_AKSARA_LEXICON = {
+      // --- Unsur [e] pepet (ꦼ) ---
+      setya: "ꦱꦼꦠꦾ",
+      setyawati: "ꦱꦼꦠꦾꦮꦠꦶ",
+      kerta: "ꦏꦼꦂꦠ",
+      weni: "ꦮꦼꦤꦶ",
+      wening: "ꦮꦼꦤꦶꦁ",
+      sekar: "ꦱꦼꦏꦂ",
+      cempaka: "ꦕꦼꦩ꧀ꦥꦏ",
+
+      // --- Unsur [e] taling (ꦺ) ---
+      dewi: "ꦢꦺꦮꦶ",
+      ken: "ꦏꦺꦤ꧀",
+      peni: "ꦥꦺꦤꦶ",
+      raden: "ꦫꦢꦺꦤ꧀",
+      kevin: "ꦏꦺꦥ꦳ꦶꦤ꧀",
+      endah: "ꦲꦺꦤ꧀ꦢꦃ",
+      endang: "ꦲꦺꦤ꧀ꦢꦁ",
+      endar: "ꦲꦺꦤ꧀ꦢꦂ",
+      eni: "ꦲꦺꦤꦶ",
+      edi: "ꦲꦺꦢꦶ",
+      eko: "ꦲꦺꦏꦺꦴ",
+      jeni: "ꦗꦺꦤꦶ",
+      yeni: "ꦪꦺꦤꦶ",
+      nareswari: "ꦤꦫꦺꦯ꧀ꦮꦫꦶ",
+      nareswara: "ꦤꦫꦺꦯ꧀ꦮꦫ",
+      maheswara: "ꦩꦲꦺꦯ꧀ꦮꦫ",
+      maheswari: "ꦩꦲꦺꦯ꧀ꦮꦫꦶ",
+      prameswari: "ꦥꦿꦩꦺꦯ꧀ꦮꦫꦶ",
+      prabaswara: "ꦥꦿꦧꦯ꧀ꦮꦫ",
+      indraswari: "ꦲꦶꦤ꧀ꦢꦿꦯ꧀ꦮꦫꦶ",
+      niscala: "ꦤꦶꦯ꧀ꦕꦭ",
+      laksmana: "ꦭꦏ꧀ꦱ꧀ꦩꦤ",
+      bhisma: "ꦨꦶꦰ꧀ꦩ",
+      bisma: "ꦨꦶꦰ꧀ꦩ",
+      senapati: "ꦱꦺꦤꦥꦠꦶ",
+      leli: "ꦭꦺꦭꦶ",
+      meli: "ꦩꦺꦭꦶ",
+      seli: "ꦱꦺꦭꦶ",
+      sela: "ꦱꦺꦭ",
+      narendra: "ꦤꦫꦺꦤ꧀ꦢꦿ",
+
+      // --- Unsur Pa Cerek (ꦉ) ---
+      retna: "ꦉꦠ꧀ꦤ",
+      respati: "ꦉꦱ꧀ꦥꦠꦶ",
+      resmi: "ꦉꦰ꧀ꦩꦶ",
+      rejeki: "ꦉꦗꦼꦏꦶ",
+      remen: "ꦉꦩꦼꦤ꧀",
+      reksa: "ꦉꦏ꧀ꦱ",
+      rebo: "ꦉꦧꦺꦴ",
+      resi: "ꦉꦱꦶ",
+      redi: "ꦉꦢꦶ",
+      reja: "ꦉꦗ",
+
+      // --- Unsur Nga Lelet (ꦊ) ---
+      lestari: "ꦊꦱ꧀ꦠꦫꦶ",
+      lembu: "ꦊꦩ꧀ꦧꦸ",
+      lembayung: "ꦊꦩ꧀ꦧꦪꦸꦁ",
+
+      // --- Unsur Mahaprana ---
+      sri: "ꦯꦿꦶ",
+      bhawana: "ꦨꦮꦤ",
+      bhakti: "ꦨꦏ꧀ꦠꦶ",
+      ghana: "ꦓꦤ",
+      ghani: "ꦓꦤꦶ",
+
+      // --- Unsur Rekan & Adopsi Bahasa Arab ---
+      syafaat: "ꦱꦾꦔꦠ꧀",
+      "syafa'at": "ꦱꦾꦔꦠ꧀",
+      safaat: "ꦱꦾꦔꦠ꧀",
+      muhammad: "ꦩꦸꦲ꦳ꦩ꧀ꦩꦢ꧀",
+      muhamad: "ꦩꦸꦲ꦳ꦩ꧀ꦩꦢ꧀",
+      mohammad: "ꦩꦸꦲ꦳ꦩ꧀ꦩꦢ꧀",
+      nur: "ꦤꦸꦂ",
+      noor: "ꦤꦸꦂ",
+      noer: "ꦤꦸꦂ",
+      rahman: "ꦫꦃꦩꦤ꧀",
+      rohman: "ꦫꦃꦩꦤ꧀",
+      rachaman: "ꦫꦃꦩꦤ꧀",
+      rachman: "ꦫꦃꦩꦤ꧀",
+      rochman: "ꦫꦃꦩꦤ꧀",
+      rahmat: "ꦫꦃꦩꦠ꧀",
+      rohmat: "ꦫꦃꦩꦠ꧀",
+      rachmat: "ꦫꦃꦩꦠ꧀",
+      rochmat: "ꦫꦃꦩꦠ꧀",
+      anisa: "ꦄꦤꦶꦱ",
+      annisa: "ꦄꦤꦶꦱ",
+      anis: "ꦄꦤꦶꦱ꧀",
+      fikri: "ꦥ꦳ꦶꦏꦿꦶ",
+      fikry: "ꦥ꦳ꦶꦏꦿꦶ",
+      fikrie: "ꦥ꦳ꦶꦏꦿꦶ",
+      fahrul: "ꦥ꦳ꦃꦫꦸꦭ꧀",
+      fachrul: "ꦥ꦳ꦃꦫꦸꦭ꧀",
+
+      // --- Unsur Diftong ---
+      laili: "ꦭꦻꦭꦶ",
+      laily: "ꦭꦻꦭꦶ",
+      laila: "ꦭꦻꦭ",
+      lailla: "ꦭꦻꦭ",
+      kayla: "ꦏꦻꦭ",
+      kaila: "ꦏꦻꦭ",
+      maulana: "ꦩꦻꦴꦭꦤ",
+
+      // --- Tambahan Adopsi & Adaptasi Arab - Jawa ---
+      hakim: "ꦲ꦳ꦏꦶꦩ꧀",
+      amin: "ꦄꦩꦶꦤ꧀",
+      aminah: "ꦄꦩꦶꦤꦃ",
+      zahra: "ꦗ꦳ꦃꦫ",
+      zahira: "ꦗ꦳ꦲꦶꦫ",
+      fajar: "ꦥ꦳ꦗꦂ",
+      fatimah: "ꦥ꦳ꦠꦶꦩꦃ",
+      farhan: "ꦥ꦳ꦂꦲꦤ꧀",
+      fauzan: "ꦥ꦳ꦻꦴꦗ꦳ꦤ꧀",
+      hafidz: "ꦲꦥ꦳ꦶꦢ꦳꧀",
+      hidayat: "ꦲꦶꦢꦪꦠ꧀",
+      ihsan: "ꦆꦃꦱꦤ꧀",
+      ilham: "ꦆꦭ꧀ꦲꦩ꧀",
+      khalid: "ꦏ꦳ꦭꦶꦢ꧀",
+      khairul: "ꦏ꦳ꦻꦫꦸꦭ꧀",
+      latifah: "ꦭꦠꦶꦥ꦳ꦃ",
+      nabila: "ꦤꦧꦶꦭ",
+      nadia: "ꦤꦢꦶꦪ",
+      najwa: "ꦤꦗ꧀ꦮ",
+      raihan: "ꦫꦻꦲꦤ꧀",
+      rizki: "ꦫꦶꦗ꦳꧀ꦏꦶ",
+      rizky: "ꦫꦶꦗ꦳꧀ꦏꦶ",
+      salma: "ꦱꦭ꧀ꦩ",
+      salsabila: "ꦱꦭ꧀ꦱꦧꦶꦭ",
+      sulaiman: "ꦱꦸꦭꦻꦩꦤ꧀",
+      syarif: "ꦱꦾꦫꦶꦥ꦳꧀",
+      syarifah: "ꦱꦾꦫꦶꦥ꦳ꦃ",
+      taufik: "ꦠꦻꦴꦥ꦳ꦶꦏ꧀",
+      umar: "ꦈꦩꦂ",
+      zaki: "ꦗ꦳ꦏꦶ",
+      zainal: "ꦗ꦳ꦻꦤꦭ꧀",
+
+      // --- Tambahan Adopsi & Adaptasi Eropa - Jawa ---
+      clara: "ꦏ꧀ꦭꦫ",
+      klara: "ꦏ꧀ꦭꦫ",
+      christina: "ꦏꦿꦶꦱ꧀ꦠꦶꦤ",
+      kristina: "ꦏꦿꦶꦱ꧀ꦠꦶꦤ",
+      kristianto: "ꦏꦿꦶꦱ꧀ꦠꦶꦪꦤ꧀ꦠꦺꦴ",
+      stefanus: "ꦱ꧀ꦠꦺꦥ꦳ꦤꦸꦱ꧀",
+      viktor: "ꦮ꦳ꦶꦏ꧀ꦠꦺꦴꦂ",
+      victor: "ꦮ꦳ꦶꦏ꧀ꦠꦺꦴꦂ",
+      yohanes: "ꦪꦺꦴꦲꦤꦼꦱ꧀",
+      helena: "ꦲꦺꦭꦺꦤ",
+      fabian: "ꦥ꦳ꦧꦶꦪꦤ꧀",
+      silvia: "ꦱꦶꦭ꧀ꦮ꦳ꦶꦪ",
+      fransiskus: "ꦥ꦳ꦿꦤ꧀ꦱꦶꦱ꧀ꦏꦸꦱ꧀",
+      natasya: "ꦤꦠꦯ",
+      gabriel: "ꦒꦧꦿꦶꦪꦺꦭ꧀",
+      rafael: "ꦫꦥ꦳ꦲꦺꦭ꧀",
+      benediktus: "ꦧꦺꦤꦺꦢꦶꦏ꧀ꦠꦸꦱ꧀",
+      elisabet: "ꦌꦭꦶꦱꦧꦺꦠ꧀",
+      veronika: "ꦮ꦳ꦺꦫꦺꦴꦤꦶꦏ",
+      albertus: "ꦄꦭ꧀ꦧꦺꦂꦠꦸꦱ꧀",
+      felix: "ꦥ꦳ꦺꦭꦶꦑ꦳꧀",
+      aurelia: "ꦎꦴꦫꦺꦭꦶꦪ"
+    };
+
+    function transliterateSingleWord(wordRaw) {
+      if (!wordRaw) return "";
+      const cleanedKey = wordRaw.toLowerCase().replace(/[^a-z']/g, "");
+      if (SPECIAL_AKSARA_LEXICON[cleanedKey]) {
+        return SPECIAL_AKSARA_LEXICON[cleanedKey];
+      }
+
+      let s = cleanedKey.replace(/'/g, "");
+      if (!s) return "";
+
+      // Aturan akhiran terbaca [i] yang ditulis -y atau -ie -> diperlakukan sama (wulu)
+      s = s.replace(/ie$/, "i").replace(/y$/, "i");
+
+      // Konsistensi akar kata "setya" menggunakan [e] pepet (ꦱꦼꦠꦾ)
+      s = s.replace(/^setya/, "sêtya");
+      // Konsistensi "cempaka" menggunakan [e] pepet dan sigeg m (ꦕꦼꦩ꧀ꦥꦏ)
+      s = s.replace(/^cempaka/, "cêmpaka");
+
+      // Normalisasi gugus nasal-palatal Jawa (nj -> nyj, nc -> nyc)
+      s = s.replace(/nj/g, "nyj").replace(/nc/g, "nyc");
+
+      // Awalan re- pada kosakata Jawa umum (pa cerek) & le- (nga lelet)
+      s = s.replace(/^re(?=[bcdfgjklmnpqrstvwxyz])/, "RÊ");
+      s = s.replace(/^le(?=[bcdfgjklmnpqrstvwxyz])/, "LÊ");
+
+      let out = "";
+      let i = 0;
+
+      const matchConsonant = (str, idx) => {
+        const two = str.slice(idx, idx + 2);
+        if (["dh", "th", "ny", "ng", "bh", "gh", "kh", "dz", "sy", "sh"].includes(two)) {
+          return { key: two, len: 2 };
+        }
+        const one = str[idx];
+        if (AKSARA_BASE[one] || one === "f" || one === "v" || one === "z") {
+          return { key: one, len: 1 };
+        }
+        return null;
+      };
+
+      const renderConsonantGlyph = key => {
+        if (key === "bh") return "ꦨ";
+        if (key === "gh") return "ꦓ";
+        if (key === "kh") return "ꦏ꦳";
+        if (key === "dz") return "ꦢ꦳";
+        if (key === "f" || key === "v") return "ꦥ꦳";
+        if (key === "z") return "ꦗ꦳";
+        if (key === "sy" || key === "sh") return "ꦱꦾ";
+        return AKSARA_BASE[key] || "";
+      };
+
+      const isVowel = ch => ["a", "i", "u", "e", "o", "ê"].includes(ch);
+
+      while (i < s.length) {
+        if (s.slice(i, i + 2) === "RÊ") {
+          out += "ꦉ";
+          i += 2;
+          continue;
+        }
+        if (s.slice(i, i + 2) === "LÊ") {
+          out += "ꦊ";
+          i += 2;
+          continue;
+        }
+
+        const ch = s[i];
+
+        // Diftong ai -> dirga mure (ꦻ), au -> dirga mure + tarung (ꦻꦴ)
+        if (s.slice(i, i + 2) === "ai") {
+          out += AKSARA_BASE.h + "ꦻ";
+          i += 2;
+          continue;
+        }
+        if (s.slice(i, i + 2) === "au") {
+          out += AKSARA_BASE.h + "ꦻꦴ";
+          i += 2;
+          continue;
+        }
+
+        // Vokal mandiri di awal kata / setelah vokal lain menggunakan 'ha' + sandhangan
+        if (isVowel(ch)) {
+          out += AKSARA_BASE.h + SANDHANGAN_VOWEL[ch];
+          i += 1;
+          continue;
+        }
+
+        const cons = matchConsonant(s, i);
+        if (!cons) {
+          i += 1;
+          continue;
+        }
+
+        i += cons.len;
+        const nextTwo = s.slice(i, i + 2);
+        const nextCh = s[i];
+
+        // Konsonan diikuti diftong ai / au
+        if (nextTwo === "ai") {
+          out += renderConsonantGlyph(cons.key) + "ꦻ";
+          i += 2;
+          continue;
+        }
+        if (nextTwo === "au") {
+          out += renderConsonantGlyph(cons.key) + "ꦻꦴ";
+          i += 2;
+          continue;
+        }
+
+        // Kasus sigeg akhir kata
+        if (!nextCh) {
+          if (cons.key === "ng") out += "ꦁ";
+          else if (cons.key === "r") out += "ꦂ";
+          else if (cons.key === "h") out += "ꦃ";
+          else out += renderConsonantGlyph(cons.key) + "꧀";
+          break;
+        }
+
+        // Konsonan diikuti vokal langsung
+        if (isVowel(nextCh)) {
+          out += renderConsonantGlyph(cons.key) + SANDHANGAN_VOWEL[nextCh];
+          i += 1;
+          continue;
+        }
+
+        // Konsonan bertemu konsonan berikutnya (sigeg tengah / pasangan)
+        const nextCons = matchConsonant(s, i);
+        if (nextCons) {
+          if (cons.key === "ng") {
+            out += "ꦁ";
+          } else if (cons.key === "r") {
+            out += "ꦂ";
+          } else if (cons.key === "h") {
+            out += "ꦃ";
+          } else if (nextCons.key === "r") {
+            out += renderConsonantGlyph(cons.key) + "ꦿ";
+            i += 1;
+            const afterR = s[i];
+            if (afterR && isVowel(afterR)) {
+              out += SANDHANGAN_VOWEL[afterR];
+              i += 1;
+            }
+          } else if (nextCons.key === "y") {
+            out += renderConsonantGlyph(cons.key) + "ꦾ";
+            i += 1;
+            const afterY = s[i];
+            if (afterY && isVowel(afterY)) {
+              out += SANDHANGAN_VOWEL[afterY];
+              i += 1;
+            }
+          } else {
+            out += renderConsonantGlyph(cons.key) + "꧀";
+          }
+        }
+      }
+
+      return out;
+    }
+
+    function latinToAksaraSimplified(latinText) {
+      if (!latinText) return "";
+      const tokens = latinText.trim().split(/\s+/).filter(Boolean);
+      if (tokens.length === 0) return "";
+
+      const pieces = tokens.map(tok => transliterateSingleWord(tok));
+      // Penggabungan Scripto Continua: jika kata sebelumnya berakhir dengan pangkon (꧀)
+      // dan kata berikutnya diawali konsonan, Unicode Aksara Jawa otomatis membentuk pasangan.
+      // Jika kata berikutnya diawali aksara 'ha' (ꦲ) sebagai penyangga vokal awal kata,
+      // maka menjadi pasangan 'ha' (꧀ꦲ) sesuai paugeran penulisan nama diri.
+      return formatCleanAksaraName(pieces.join(""));
+    }
+
+    function buildScriptoContinuaAksara(words) {
+      if (!Array.isArray(words) || words.length === 0) return "";
+      const pieces = words.map(w => {
+        const key = (w.word || "").toLowerCase().replace(/[^a-z']/g, "");
+        if (SPECIAL_AKSARA_LEXICON[key]) return SPECIAL_AKSARA_LEXICON[key];
+        return latinToAksaraSimplified(w.word);
+      });
+      return formatCleanAksaraName(pieces.join(""));
+    }
+
+    /**
+     * ============================================================================
+     * DATABASE LEKSIKON TERVALIDASI (BAUSASTRA JAWA & KAMUS JAWA KUNO ZOETMULDER)
+     * ============================================================================
+     */
+    const JAVANESE_LEXICON = [
+      // --- KAKUNG (LAKI-LAKI) ---
+      { word: "Dananjaya", aksara: "ꦢꦤꦚ꧀ꦗꦪ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kesatria unggul yang membawa kejayaan dan kemakmuran", phrase: "tumbuh menjadi kesatria unggul pembawa kejayaan" },
+      { word: "Bagaskara", aksara: "ꦧꦒꦱ꧀ꦏꦫ", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Matahari yang memancarkan cahaya kehidupan", phrase: "menjadi lentera terang bagai surya yang menyinari sesama" },
+      { word: "Baskara", aksara: "ꦧꦱ꧀ꦏꦫ", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Surya, pembuat cahaya yang menerangi semesta", phrase: "memancarkan cahaya kebaikan yang menghangatkan semesta" },
+      { word: "Suryaputra", aksara: "ꦱꦸꦂꦪꦥꦸꦠꦿ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Putra sang surya yang berjiwa satria dan bercahaya", phrase: "berjiwa satria luhur laksana putra sang surya" },
+      { word: "Abimanyu", aksara: "ꦲꦧꦶꦩꦚꦸ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Pemberani, tidak gentar menghadapi rintangan", phrase: "memiliki keberanian teguh tanpa gentar menghadapi cobaan" },
+      { word: "Arjuna", aksara: "ꦲꦂꦗꦸꦤ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Bersih, cemerlang, dan tangguh dalam dharma", phrase: "berhati jernih, cemerlang, serta tangguh membela kebenaran" },
+      { word: "Gatotkaca", aksara: "ꦒꦛꦺꦴꦠ꧀ꦏꦕ", gender: "kakung", theme: "keteguhan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kokoh kuat bagai baja dan berbakti pada negeri", phrase: "berpendirian kokoh kuat dan berbakti sepenuh jiwa" },
+      { word: "Darmaputra", aksara: "ꦢꦂꦩꦥꦸꦠꦿ", gender: "kakung", theme: "kebijaksanaan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Putra kebajikan yang menjunjung tinggi kebenaran", phrase: "menjunjung tinggi nilai kebajikan dan darma kehidupan" },
+      { word: "Prabaswara", aksara: "ꦥꦿꦧꦯ꧀ꦮꦫ", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Cahaya yang bersinar terang benderang", phrase: "memancarkan sinar kemuliaan di mana pun berada" },
+      { word: "Cakrawala", aksara: "ꦕꦏꦿꦮꦭ", gender: "kakung", theme: "kebijaksanaan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Kaki langit yang luas, melambangkan wawasan tanpa batas", phrase: "berwawasan luas seluas bentang cakrawala" },
+      { word: "Wirasena", aksara: "ꦮꦶꦫꦱꦺꦤ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Panglima pemberani yang melindungi sesama", phrase: "menjadi pemimpin pemberani yang mengayomi sesama" },
+      { word: "Jayeng", aksara: "ꦗꦪꦺꦁ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Unggul dan menang dalam setiap perjuangan luhur", phrase: "unggul dan berjaya dalam setiap ikhtiar kebaikan" },
+      { word: "Pamungkas", aksara: "ꦥꦩꦸꦁꦏꦱ꧀", gender: "kakung", theme: "keteguhan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Penutup yang utama, penyempurna harapan keluarga", phrase: "menjadi penyempurna kebahagiaan dan harapan keluarga" },
+      { word: "Nugraha", aksara: "ꦤꦸꦒꦿꦲ", gender: "kakung", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Anugerah dan karunia mulia dari Tuhan Yang Maha Esa", phrase: "dianugerahi karunia dan berkah melimpah dari Tuhan" },
+      { word: "Prakosa", aksara: "ꦥꦿꦏꦺꦴꦱ", gender: "kakung", theme: "keteguhan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Sentosa, kuat lahir batin, serta berwibawa", phrase: "sentosa, tangguh lahir batin, serta penuh wibawa" },
+      { word: "Santosa", aksara: "ꦱꦤ꧀ꦠꦺꦴꦱ", gender: "kakung", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Kuat, damai, dan sejahtera hidupnya", phrase: "hidup dalam kedamaian, kekuatan, dan kesejahteraan" },
+      { word: "Wibawa", aksara: "ꦮꦶꦧꦮ", gender: "kakung", theme: "kepemimpinan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kemuliaan, kekuasaan yang luhur, dan kharisma", phrase: "memiliki kharisma dan kewibawaan yang disegani" },
+      { word: "Maheswara", aksara: "ꦩꦲꦺꦯ꧀ꦮꦫ", gender: "kakung", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Pemimpin agung yang bijaksana dan adil", phrase: "berjiwa pemimpin agung yang adil lagi bijaksana" },
+      { word: "Narayana", aksara: "ꦤꦫꦪꦤ", gender: "kakung", theme: "kebijaksanaan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Tempat berlindung dan penuntun jalan kebenaran", phrase: "menjadi penuntun jalan kebenaran bagi banyak orang" },
+      { word: "Sasangka", aksara: "ꦱꦱꦁꦏ", gender: "kakung", theme: "keindahan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Rembulan yang menerangi keheningan malam", phrase: "menyejukkan hati laksana cahaya rembulan purnama" },
+      { word: "Subagya", aksara: "ꦱꦸꦧꦒꦾ", gender: "kakung", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Sangat berbahagia dan beruntung nasibnya", phrase: "dilimpahi kebahagiaan dan keberuntungan sejati" },
+      { word: "Sudira", aksara: "ꦱꦸꦢꦶꦫ", gender: "kakung", theme: "keteguhan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Sangat teguh, tabah, dan pemberani", phrase: "berhati tabah, teguh, dan penuh keberanian" },
+      { word: "Sumantri", aksara: "ꦱꦸꦩꦤ꧀ꦠꦿꦶ", gender: "kakung", theme: "kebijaksanaan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Penasihat utama yang cerdas dan setia mengabdi", phrase: "cerdas berakal budi serta setia dalam pengabdian" },
+      { word: "Tanaya", aksara: "ꦠꦤꦪ", gender: "kakung", theme: "kesejahteraan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Putra terkasih penerus garis kemuliaan", phrase: "menjadi putra terkasih penerus keluhuran keluarga" },
+      { word: "Waskita", aksara: "ꦮꦱ꧀ꦏꦶꦠ", gender: "kakung", theme: "kebijaksanaan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Tajam penglihatan batinnya, arif, dan bijaksana", phrase: "tajam mata batinnya dan arif membaca keadaan" },
+      { word: "Yudhistira", aksara: "ꦪꦸꦝꦶꦱ꧀ꦛꦶꦫ", gender: "kakung", theme: "keteguhan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Teguh dalam peperangan batin dan menjunjung kejujuran", phrase: "teguh memegang kejujuran dan ketenangan batin" },
+      { word: "Narendra", aksara: "ꦤꦫꦺꦤ꧀ꦢꦿ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Raja atau pemimpin utama yang mengayomi rakyat", phrase: "berjiwa pemimpin utama yang mengayomi sesama" },
+      { word: "Senapati", aksara: "ꦱꦺꦤꦥꦠꦶ", gender: "kakung", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Panglima tertinggi yang gagah berani dan bijak", phrase: "menjadi panglima kehidupan yang bijak dan pemberani" },
+      { word: "Respati", aksara: "ꦉꦱ꧀ꦥꦠꦶ", gender: "kakung", theme: "kepemimpinan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Gagah, pantas, dan berwibawa dalam pembawaan", phrase: "berpembawaan gagah, pantas, dan penuh wibawa" },
+      { word: "Bhakti", aksara: "ꦨꦏ꧀ꦠꦶ", gender: "kakung", theme: "keteguhan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Pengabdian suci dan bakti tulus kepada Tuhan serta orang tua", phrase: "berbakti tulus kepada Tuhan dan orang tua" },
+      { word: "Bhisma", aksara: "ꦨꦶꦰ꧀ꦩ", gender: "kakung", theme: "keteguhan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kesatria agung yang teguh memegang sumpah suci dan kebijaksanaan", phrase: "teguh memegang sumpah suci serta kebijaksanaan luhur" },
+      { word: "Kerta", aksara: "ꦏꦼꦂꦠ", gender: "kakung", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Aman, tenteram, tertib, dan makmur", phrase: "membawa ketenteraman, ketertiban, dan kemakmuran" },
+
+      // --- PUTRI (PEREMPUAN) ---
+      { word: "Sekar", aksara: "ꦱꦼꦏꦂ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Bunga yang indah dan menebarkan keharuman budi", phrase: "mekar indah menebarkan keharuman budi pekerti" },
+      { word: "Kusuma", aksara: "ꦏꦸꦱꦸꦩ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Bunga mulia, lambang keluhuran dan keindahan", phrase: "berbudi luhur dan anggun bagai bunga kusuma" },
+      { word: "Puspa", aksara: "ꦥꦸꦱ꧀ꦥ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kembang suci yang memancarkan pesona kebaikan", phrase: "memancarkan pesona kebaikan yang menyejukkan" },
+      { word: "Arum", aksara: "ꦲꦫꦸꦩ꧀", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Harum namanya dan elok tutur katanya", phrase: "harum nama baiknya serta santun tutur katanya" },
+      { word: "Kirana", aksara: "ꦏꦶꦫꦤ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Sinar cahaya yang elok dan menawan", phrase: "memancarkan sinar keindahan yang menawan hati" },
+      { word: "Larasati", aksara: "ꦭꦫꦱꦠꦶ", gender: "putri", theme: "kebijaksanaan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Keselarasan hati dan ketenangan jiwa", phrase: "memiliki ketenangan jiwa dan keselarasan hati" },
+      { word: "Cempaka", aksara: "ꦕꦼꦩ꧀ꦥꦏ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Bunga cempaka yang harum semerbak sepanjang masa", phrase: "senantiasa menebar kebaikan yang harum dikenang" },
+      { word: "Candrawati", aksara: "ꦕꦤ꧀ꦢꦿꦮꦠꦶ", gender: "putri", theme: "kebijaksanaan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Cemerlang pikirannya bagai cahaya rembulan", phrase: "cemerlang akal budinya bagai cahaya rembulan" },
+      { word: "Gayatri", aksara: "ꦒꦪꦠꦿꦶ", gender: "putri", theme: "kebijaksanaan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Tiga kekuatan luhur: kecerdasan, kebajikan, dan keanggunan", phrase: "dianugerahi kecerdasan, kebajikan, dan keanggunan" },
+      { word: "Indraswari", aksara: "ꦲꦶꦤ꧀ꦢꦿꦯ꧀ꦮꦫꦶ", gender: "putri", theme: "kesejahteraan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Permaisuri yang mulia dan membawa kebahagiaan", phrase: "bermartabat mulia dan membawa kebahagiaan" },
+      { word: "Kinasih", aksara: "ꦏꦶꦤꦱꦶꦃ", gender: "putri", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Sangat dikasihi dan dicintai oleh Tuhan serta sesama", phrase: "menjadi pribadi yang selalu dikasihi Tuhan dan sesama" },
+      { word: "Lestari", aksara: "ꦊꦱ꧀ꦠꦫꦶ", gender: "putri", theme: "keteguhan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Abadi dalam kebaikan, selamat, dan lestari", phrase: "senantiasa selamat dan abadi dalam laku kebaikan" },
+      { word: "Nirmala", aksara: "ꦤꦶꦂꦩꦭ", gender: "putri", theme: "keteguhan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Suci bersih, tanpa noda, dan berhati tulus", phrase: "berhati suci bersih, tulus, dan jauh dari cela" },
+      { word: "Padmasari", aksara: "ꦥꦢ꧀ꦩꦱꦫꦶ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Sari pati bunga teratai yang suci dan indah", phrase: "tumbuh suci dan anggun bagai sari bunga teratai" },
+      { word: "Paramita", aksara: "ꦥꦫꦩꦶꦠ", gender: "putri", theme: "kebijaksanaan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kesempurnaan kebijaksanaan dan keluhuran budi", phrase: "mencapai kesempurnaan budi dan kebijaksanaan" },
+      { word: "Prameswari", aksara: "ꦥꦿꦩꦺꦯ꧀ꦮꦫꦶ", gender: "putri", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Permaisuri utama yang anggun dan berwibawa", phrase: "berjiwa pemimpin yang anggun serta penuh kasih" },
+      { word: "Ratih", aksara: "ꦫꦠꦶꦃ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Dewi keindahan, kasih sayang, dan kegembiraan", phrase: "dipenuhi kasih sayang, kelembutan, dan kegembiraan" },
+      { word: "Retna", aksara: "ꦉꦠ꧀ꦤ", gender: "putri", theme: "kesejahteraan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Permata indah yang sangat berharga", phrase: "menjadi permata berharga kebanggaan keluarga" },
+      { word: "Saraswati", aksara: "ꦱꦫꦱ꧀ꦮꦠꦶ", gender: "putri", theme: "kebijaksanaan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Dewi ilmu pengetahuan, seni, dan kefasihan tutur", phrase: "diberkahi keluasan ilmu pengetahuan dan kehalusan seni" },
+      { word: "Setyawati", aksara: "ꦱꦼꦠꦾꦮꦠꦶ", gender: "putri", theme: "keteguhan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Wanita yang sangat setia pada kebenaran dan janji", phrase: "berhati setia pada kebenaran dan ketulusan janji" },
+      { word: "Utami", aksara: "ꦲꦸꦠꦩꦶ", gender: "putri", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Keutamaan, keluhuran, dan kebaikan tertinggi", phrase: "senantiasa mengutamakan keluhuran budi pekerti" },
+      { word: "Wulandari", aksara: "ꦮꦸꦭꦤ꧀ꦢꦫꦶ", gender: "putri", theme: "keindahan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Bulan purnama yang bersinar lembut dan menenangkan", phrase: "menerangi sekitar dengan kelembutan bagai bulan purnama" },
+      { word: "Widuri", aksara: "ꦮꦶꦢꦸꦫꦶ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Batu permata mulia yang berkilau indah", phrase: "berkilau mulia laksana permata pilihan" },
+      { word: "Anindita", aksara: "ꦲꦤꦶꦤ꧀ꦢꦶꦠ", gender: "putri", theme: "keteguhan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Sempurna, tanpa cacat, dan unggul akhlaknya", phrase: "memiliki akhlak terpuji yang tanpa cela" },
+      { word: "Ayu", aksara: "ꦲꦪꦸ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Cantik parasnya, anggun, dan selamat hidupnya", phrase: "anggun lahir batin serta selamat jalan hidupnya" },
+      { word: "Endah", aksara: "ꦲꦺꦤ꧀ꦢꦃ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Indah, elok, dan menyenangkan dipandang", phrase: "elok budi pekertinya dan menyejukkan pandangan" },
+      { word: "Dewi", aksara: "ꦢꦺꦮꦶ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Bidadari mulia yang bercahaya kebaikan", phrase: "berpembawaan mulia dan bercahaya bagai dewi" },
+      { word: "Nareswari", aksara: "ꦤꦫꦺꦯ꧀ꦮꦫꦶ", gender: "putri", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Permaisuri agung yang bijaksana dan dihormati", phrase: "menjadi wanita utama yang bijaksana dan dihormati" },
+      { word: "Maheswari", aksara: "ꦩꦲꦺꦯ꧀ꦮꦫꦶ", gender: "putri", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Bidadari agung yang penuh kemuliaan dan kebijaksanaan", phrase: "dianugerahi kemuliaan dan kebijaksanaan agung" },
+      { word: "Sri", aksara: "ꦯꦿꦶ", gender: "putri", theme: "kesejahteraan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Cahaya kemakmuran, keindahan, dan keberkahan", phrase: "menjadi pembawa cahaya kemakmuran dan keberkahan" },
+      { word: "Wening", aksara: "ꦮꦼꦤꦶꦁ", gender: "putri", theme: "kebijaksanaan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Jernih hatinya, bening pikirannya, dan tenang jiwanya", phrase: "berhati bening, jernih pikirannya, dan tenang jiwanya" },
+
+      // --- NETRAL / UNISEKS ---
+      { word: "Wicaksana", aksara: "ꦮꦶꦕꦏ꧀ꦱꦤ", gender: "netral", theme: "kebijaksanaan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Bijaksana, pandai menimbang baik dan buruk", phrase: "bijaksana dalam setiap keputusan dan tindakan" },
+      { word: "Raharja", aksara: "ꦫꦲꦂꦗ", gender: "netral", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Sejahtera, selamat, dan jauh dari marabahaya", phrase: "hidup selamat, makmur, dan sejahtera lahir batin" },
+      { word: "Rahayu", aksara: "ꦫꦲꦪꦸ", gender: "netral", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Selamat, damai, dan dilimpahi kebaikan semesta", phrase: "senantiasa dilimpahi keselamatan dan kedamaian" },
+      { word: "Wijaya", aksara: "ꦮꦶꦗꦪ", gender: "netral", theme: "kepemimpinan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kemenangan dan keunggulan yang gemilang", phrase: "meraih kemenangan dan keberhasilan yang gemilang" },
+      { word: "Aditya", aksara: "ꦲꦢꦶꦠꦾ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Matahari yang menjadi sumber energi dan harapan", phrase: "menjadi sumber semangat dan harapan bagi lingkungan" },
+      { word: "Ananta", aksara: "ꦲꦤꦤ꧀ꦠ", gender: "netral", theme: "kebijaksanaan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Tanpa batas, melambangkan keluasan ilmu dan rezeki", phrase: "dianugerahi ilmu dan rezeki yang luas tanpa batas" },
+      { word: "Arya", aksara: "ꦲꦂꦪ", gender: "netral", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Bangsawan budi, mulia, dan terhormat", phrase: "berbudi luhur, mulia, dan terhormat" },
+      { word: "Atmaja", aksara: "ꦲꦠ꧀ꦩꦗ", gender: "netral", theme: "kesejahteraan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Anak keturunan yang menjadi permata jiwa", phrase: "menjadi permata jiwa kebanggaan orang tua" },
+      { word: "Budi", aksara: "ꦧꦸꦢꦶ", gender: "netral", theme: "kebijaksanaan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Akal sehat, watak luhur, dan kebajikan", phrase: "berakal budi luhur dan mengutamakan kebajikan" },
+      { word: "Cahya", aksara: "ꦕꦃꦪ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Sinar terang yang menuntun dalam kegelapan", phrase: "memancarkan sinar keteladanan bagi sesama" },
+      { word: "Candra", aksara: "ꦕꦤ꧀ꦢꦿ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Rembulan yang indah dan penuh ketenangan", phrase: "berhati teduh dan menenangkan bagai rembulan" },
+      { word: "Darma", aksara: "ꦢꦂꦩ", gender: "netral", theme: "kebijaksanaan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kewajiban suci, kebenaran, dan kebajikan", phrase: "setia menjalankan darma dan kebenaran hidup" },
+      { word: "Dipta", aksara: "ꦢꦶꦥ꧀ꦠ", gender: "netral", theme: "keindahan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Berkilau, bersinar terang, dan cemerlang", phrase: "bersinar cemerlang dalam karya dan pengabdian" },
+      { word: "Dwija", aksara: "ꦢ꧀ꦮꦶꦗ", gender: "netral", theme: "kebijaksanaan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Guru atau orang bijak yang berilmu tinggi", phrase: "menjadi sumber ilmu dan teladan kebijaksanaan" },
+      { word: "Gita", aksara: "ꦒꦶꦠ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Nyanyian suci, kidung pujian yang merdu", phrase: "hidupnya selaras bagai kidung pujian yang indah" },
+      { word: "Harsana", aksara: "ꦲꦂꦱꦤ", gender: "netral", theme: "kesejahteraan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kegembiraan, sukacita, dan kebahagiaan hati", phrase: "senantiasa diliputi sukacita dan kebahagiaan" },
+      { word: "Jatmika", aksara: "ꦗꦠ꧀ꦩꦶꦏ", gender: "netral", theme: "keteguhan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Sopan santun, rendah hati, dan tenang pembawaannya", phrase: "rendah hati, santun, dan tenang pembawaannya" },
+      { word: "Kalingga", aksara: "ꦏꦭꦶꦁꦒ", gender: "netral", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Cahaya kemuliaan sejarah dan keluhuran peradaban", phrase: "mewarisi keluhuran peradaban dan kemuliaan budi" },
+      { word: "Kartika", aksara: "ꦏꦂꦠꦶꦏ", gender: "netral", theme: "keindahan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Bintang yang bersinar tinggi di langit", phrase: "bersinar tinggi dan menginspirasi layaknya bintang" },
+      { word: "Laksmana", aksara: "ꦭꦏ꧀ꦱ꧀ꦩꦤ", gender: "netral", theme: "keteguhan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Tanda keberuntungan dan kesetiaan sejati", phrase: "membawa tanda keberuntungan dan kesetiaan" },
+      { word: "Mahardika", aksara: "ꦩꦲꦂꦢꦶꦏ", gender: "netral", theme: "kebijaksanaan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Berbudi luhur, merdeka jiwanya, dan bijaksana", phrase: "berjiwa merdeka, luhur budinya, serta bijaksana" },
+      { word: "Mandala", aksara: "ꦩꦤ꧀ꦢꦭ", gender: "netral", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Lingkaran wilayah keselarasan dan pusat kebajikan", phrase: "menjadi pusat keselarasan dan harmoni bagi sekitar" },
+      { word: "Mulya", aksara: "ꦩꦸꦭꦾ", gender: "netral", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Mulia, luhur derajatnya, dan terhormat", phrase: "diangkat derajatnya dalam kemuliaan hidup" },
+      { word: "Niscala", aksara: "ꦤꦶꦯ꧀ꦕꦭ", gender: "netral", theme: "keteguhan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Teguh tak tergoyahkan, kokoh pendiriannya", phrase: "berpendirian kokoh dan tak tergoyahkan oleh badai" },
+      { word: "Pambudi", aksara: "ꦥꦩ꧀ꦧꦸꦢꦶ", gender: "netral", theme: "kebijaksanaan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Keluhuran akal budi dan kebijaksanaan hidup", phrase: "senantiasa mengedepankan keluhuran akal budi" },
+      { word: "Pradana", aksara: "ꦥꦿꦢꦤ", gender: "netral", theme: "kesejahteraan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Yang utama, dermawan, dan terkemuka", phrase: "menjadi insan utama yang dermawan bagi sesama" },
+      { word: "Prasaja", aksara: "ꦥꦿꦱꦗ", gender: "netral", theme: "keteguhan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Bersahaja, jujur apa adanya, dan tidak berlebihan", phrase: "hidup bersahaja, jujur, dan penuh ketulusan" },
+      { word: "Prasetya", aksara: "ꦥꦿꦱꦼꦠꦾ", gender: "netral", theme: "keteguhan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Kesetiaan yang teguh dan janji suci", phrase: "teguh memegang kesetiaan dan amanah" },
+      { word: "Prawira", aksara: "ꦥꦿꦮꦶꦫ", gender: "netral", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Pemberani, perwira, dan berjiwa pahlawan", phrase: "berjiwa pahlawan yang berani membela kebenaran" },
+      { word: "Prayoga", aksara: "ꦥꦿꦪꦺꦴꦒ", gender: "netral", theme: "kebijaksanaan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Baik, patut, bijaksana, dan utama", phrase: "senantiasa menempuh jalan yang patut dan utama" },
+      { word: "Purnama", aksara: "ꦥꦸꦂꦤꦩ", gender: "netral", theme: "keindahan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Utuh sempurna dan bercahaya penuh", phrase: "meraih keutuhan dan cahaya kesempurnaan hidup" },
+      { word: "Raka", aksara: "ꦫꦏ", gender: "netral", theme: "kepemimpinan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Saudara tua yang melindungi dan mengayomi", phrase: "menjadi pelindung dan pengayom bagi keluarga" },
+      { word: "Sakti", aksara: "ꦱꦏ꧀ꦠꦶ", gender: "netral", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Memiliki daya kekuatan luhur dan kemampuan unggul", phrase: "dianugerahi daya kekuatan dan kecakapan unggul" },
+      { word: "Satriya", aksara: "ꦱꦠꦿꦶꦪ", gender: "netral", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kesatria berjiwa luhur, berani, dan adil", phrase: "berwatak kesatria yang adil dan berani" },
+      { word: "Satya", aksara: "ꦱꦠꦾ", gender: "netral", theme: "keteguhan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Kebenaran sejati, kejujuran, dan kesetiaan", phrase: "menjunjung tinggi kebenaran dan kejujuran sejati" },
+      { word: "Setya", aksara: "ꦱꦼꦠꦾ", gender: "netral", theme: "keteguhan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Setia, tulus, dan dapat dipercaya", phrase: "berhati tulus, setia, dan dapat dipercaya" },
+      { word: "Susila", aksara: "ꦱꦸꦱꦶꦭ", gender: "netral", theme: "keteguhan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Berakhlak baik, beradab, dan santun", phrase: "beradab luhur dan santun dalam pergaulan" },
+      { word: "Tama", aksara: "ꦠꦩ", gender: "netral", theme: "kesejahteraan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Utama, terbaik, dan penuh keutamaan", phrase: "menjadi pribadi terbaik yang penuh keutamaan" },
+      { word: "Teguh", aksara: "ꦠꦼꦒꦸꦃ", gender: "netral", theme: "keteguhan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Kuat pendiriannya, kokoh, dan tidak mudah goyah", phrase: "berpendirian kokoh dan teguh dalam prinsip" },
+      { word: "Tirta", aksara: "ꦠꦶꦂꦠ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Air suci yang memberi kehidupan dan kesegaran", phrase: "memberi kesejukan dan kehidupan bagai air suci" },
+      { word: "Utama", aksara: "ꦲꦸꦠꦩ", gender: "netral", theme: "kesejahteraan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Tertinggi kualitasnya, luhur, dan mulia", phrase: "mencapai derajat keluhuran yang utama" },
+      { word: "Wastu", aksara: "ꦮꦱ꧀ꦠꦸ", gender: "netral", theme: "kesejahteraan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Harta berharga, berkah nyata, dan keselamatan", phrase: "menjadi berkah nyata dan keselamatan bagi keluarga" },
+      { word: "Widya", aksara: "ꦮꦶꦢꦾ", gender: "netral", theme: "kebijaksanaan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Ilmu pengetahuan suci dan kebijaksanaan", phrase: "dianugerahi keluasan ilmu pengetahuan dan kebijaksanaan" },
+      { word: "Wira", aksara: "ꦮꦶꦫ", gender: "netral", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Pahlawan gagah berani pembela kebenaran", phrase: "tumbuh menjadi pejuang kebenaran yang gagah berani" },
+      { word: "Yasa", aksara: "ꦪꦱ", gender: "netral", theme: "kesejahteraan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Jasa kebaikan, karya mulia, dan kehormatan", phrase: "meninggalkan karya mulia dan jasa kebaikan bagi dunia" },
+      { word: "Bhawana", aksara: "ꦨꦮꦤ", gender: "netral", theme: "kesejahteraan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder)", meaning: "Semesta, tempat kehidupan yang luas dan damai", phrase: "membawa kedamaian seluas semesta raya" },
+      { word: "Reksa", aksara: "ꦉꦏ꧀ꦱ", gender: "netral", theme: "keteguhan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Penjaga, pelindung, dan pemelihara kebaikan", phrase: "menjadi penjaga dan pelindung keluhuran keluarga" },
+
+      // --- TAMBAHAN KHAZANAH BAUSASTRA JAWA & JAWA KUNO / SANSKERTA ---
+      { word: "Baskara", aksara: "ꦧꦱ꧀ꦏꦫ", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Matahari yang bersinar terang memberi kehidupan", phrase: "memancarkan cahaya kehidupan bagai sang surya" },
+      { word: "Bayu", aksara: "ꦧꦪꦸ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Angin semesta, kekuatan gerak, dan napas kehidupan", phrase: "membawa kesegaran dan kekuatan hidup bagi sekitar" },
+      { word: "Bima", aksara: "ꦧꦶꦩ", gender: "kakung", theme: "keteguhan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Gagah perkasa, luar biasa, dan teguh membela kebenaran", phrase: "berjiwa gagah perkasa dalam membela kebenaran" },
+      { word: "Brata", aksara: "ꦧꦿꦠ", gender: "kakung", theme: "keteguhan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Laku prihatin, keteguhan tekad, dan pengendalian diri", phrase: "memiliki keteguhan tekad dan pengendalian diri yang luhur" },
+      { word: "Damian", aksara: "ꦢꦩꦶꦪꦤ꧀", gender: "kakung", theme: "keteguhan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Yunani/Latin)", meaning: "Penakluk yang lembut hati, penenang, dan pembawa damai", phrase: "menjadi penenang hati dan pembawa kedamaian" },
+      { word: "Damar", aksara: "ꦢꦩꦂ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Pelita atau obor penerang dalam kegelapan", phrase: "menjadi pelita penerang jalan bagi sesama" },
+      { word: "Endar", aksara: "ꦲꦺꦤ꧀ꦢꦂ", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Bercahaya elok, menawan, dan memikat budinya", phrase: "berpembawaan elok dan memancarkan pesona kebaikan" },
+      { word: "Galih", aksara: "ꦒꦭꦶꦃ", gender: "kakung", theme: "kebijaksanaan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Inti hati terdalam, pusat pikiran dan perasaan halus", phrase: "berhati mendalam, lembut, dan penuh pertimbangan" },
+      { word: "Ganendra", aksara: "ꦒꦤꦺꦤ꧀ꦢꦿ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Pemimpin pasukan kebaikan yang gagah dan bijaksana", phrase: "menjadi pemimpin barisan kebaikan yang bijaksana" },
+      { word: "Gilang", aksara: "ꦒꦶꦭꦁ", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Bercahaya terang, berkilau bersih, dan cemerlang", phrase: "bersinar cemerlang dalam akhlak dan karya" },
+      { word: "Harjuno", aksara: "ꦲꦂꦗꦸꦤꦺꦴ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Kesatria berhati jernih dan unggul dalam darma", phrase: "berhati jernih dan unggul dalam pengabdian" },
+      { word: "Indra", aksara: "ꦲꦶꦤ꧀ꦢꦿ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Pemimpin agung yang berwibawa dan pelindung semesta", phrase: "berwibawa agung serta mengayomi sesama" },
+      { word: "Jaya", aksara: "ꦗꦪ", gender: "netral", theme: "kepemimpinan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Kemenangan, keunggulan, dan keberhasilan", phrase: "meraih kemenangan dan keberhasilan dalam hidup" },
+      { word: "Kama", aksara: "ꦏꦩ", gender: "netral", theme: "kesejahteraan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Kasih sayang suci, harapan luhur, dan cinta kasih", phrase: "dipenuhi cinta kasih dan harapan-harapan luhur" },
+      { word: "Kumara", aksara: "ꦏꦸꦩꦫ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno (Zoetmulder) & Bausastra Jawa", meaning: "Putra muda yang suci, berjiwa satria, bersinar mulia, dan penuh harapan masa depan", phrase: "tumbuh menjadi putra berjiwa suci, satria muda yang bersinar mulia dan penuh harapan" },
+      { word: "Kencana", aksara: "ꦏꦼꦚ꧀ꦕꦤ", gender: "putri", theme: "kesejahteraan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Emas murni yang sangat berharga dan bercahaya", phrase: "bernilai mulia bagai emas murni yang berkilau" },
+      { word: "Lembayung", aksara: "ꦊꦩ꧀ꦧꦪꦸꦁ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Cahaya kemerahan senja yang indah dan meneduhkan", phrase: "menghadirkan keindahan yang meneduhkan hati" },
+      { word: "Lintang", aksara: "ꦭꦶꦤ꧀ꦠꦁ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Bintang di langit yang menjadi penunjuk arah", phrase: "menjadi bintang penunjuk arah kebaikan" },
+      { word: "Manggala", aksara: "ꦩꦁꦒꦭ", gender: "kakung", theme: "kepemimpinan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Pemimpin utama, panglima, serta pertanda keberuntungan", phrase: "menjadi pemimpin utama pembawa keberuntungan" },
+      { word: "Nawang", aksara: "ꦤꦮꦁ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Memandang langit cerah, anggun bagai bidadari", phrase: "berpembawaan anggun dan cerah pandangannya" },
+      { word: "Nimpuna", aksara: "ꦤꦶꦩ꧀ꦥꦸꦤ", gender: "netral", theme: "kebijaksanaan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Cakap, ahli, cerdas, dan bijaksana dalam berkarya", phrase: "cerdas, cakap, dan bijaksana dalam setiap karya" },
+      { word: "Pambayun", aksara: "ꦥꦩ꧀ꦧꦪꦸꦤ꧀", gender: "netral", theme: "kepemimpinan", posHint: 2, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Anak sulung yang menjadi panutan dan pelindung adik-adiknya", phrase: "menjadi panutan dan pelindung bagi keluarga" },
+      { word: "Peni", aksara: "ꦥꦺꦤꦶ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Indah, halus, cantik, dan sangat berharga", phrase: "berbudi halus dan indah tutur perilakunya" },
+      { word: "Pradipta", aksara: "ꦥꦿꦢꦶꦥ꧀ꦠ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Cahaya yang bersinar terang benderang", phrase: "memancarkan sinar kecerdasan dan kebaikan" },
+      { word: "Raden", aksara: "ꦫꦢꦺꦤ꧀", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Gelar kebangsawanan dan keluhuran martabat Jawa", phrase: "menjunjung martabat dan keluhuran budi" },
+      { word: "Resi", aksara: "ꦉꦱꦶ", gender: "kakung", theme: "kebijaksanaan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Orang suci yang bijaksana dan mendalami ilmu", phrase: "mendalami ilmu kebijaksanaan dan kesucian hati" },
+      { word: "Sagara", aksara: "ꦱꦒꦫ", gender: "kakung", theme: "kebijaksanaan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Samudra luas yang sabar menampung segala aliran", phrase: "berhati lapang dan sabar seluas samudra" },
+      { word: "Sekararum", aksara: "ꦱꦼꦏꦂꦲꦫꦸꦩ꧀", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Bunga harum yang mewangi dengan kebajikan", phrase: "menebarkan keharuman nama baik dan kebajikan" },
+      { word: "Surya", aksara: "ꦱꦸꦂꦪ", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Matahari yang menjadi sumber cahaya dan energi alam", phrase: "menjadi sumber terang dan semangat bagi sesama" },
+      { word: "Tirtayasa", aksara: "ꦠꦶꦂꦠꦪꦱ", gender: "kakung", theme: "kesejahteraan", posHint: 2, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Air suci yang membawa jasa kemakmuran", phrase: "mengalirkan berkah dan kemakmuran bagi sesama" },
+      { word: "Wani", aksara: "ꦮꦤꦶ", gender: "kakung", theme: "kepemimpinan", posHint: 1, sourceType: "bausastra", sourceLabel: "Bausastra Jawa (Poerwadarminta)", meaning: "Berani menegakkan kebenaran dan keadilan", phrase: "berani menegakkan kebenaran tanpa rasa takut" },
+      { word: "Wibisana", aksara: "ꦮꦶꦧꦶꦱꦤ", gender: "kakung", theme: "kebijaksanaan", posHint: 1, sourceType: "kuno", sourceLabel: "Kamus Jawa Kuno / Sanskerta (Zoetmulder)", meaning: "Kesatria bijak yang teguh berpihak pada kebenaran", phrase: "teguh berpihak pada jalan kebenaran dan kebijaksanaan" },
+
+      // --- ADOPSI & ADAPTASI ARAB - JAWA (PAUGERAN REKAN KAJ I 2021) ---
+      { word: "Muhammad", aksara: "ꦩꦸꦲ꦳ꦩ꧀ꦩꦢ꧀", gender: "kakung", theme: "keteguhan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Yang terpuji akhlak dan perilakunya", phrase: "meneladani akhlak mulia lagi terpuji" },
+      { word: "Ahmad", aksara: "ꦄꦃꦩꦢ꧀", gender: "kakung", theme: "keteguhan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Sangat terpuji dan berbudi pekerti luhur", phrase: "senantiasa terpuji budi pekertinya" },
+      { word: "Rahman", aksara: "ꦫꦃꦩꦤ꧀", gender: "kakung", theme: "kesejahteraan", posHint: 2, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Penuh kasih sayang dan belas kasih kepada sesama", phrase: "dilimpahi sifat pengasih dan penyayang sesama" },
+      { word: "Rahmat", aksara: "ꦫꦃꦩꦠ꧀", gender: "kakung", theme: "kesejahteraan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Karunia, berkah, dan kasih sayang Tuhan", phrase: "menjadi pembawa berkah dan karunia Tuhan" },
+      { word: "Nur", aksara: "ꦤꦸꦂ", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Cahaya petunjuk Ilahi yang menerangi hati", phrase: "memancarkan cahaya petunjuk dan kebaikan" },
+      { word: "Syafaat", aksara: "ꦱꦾꦔꦠ꧀", gender: "kakung", theme: "kesejahteraan", posHint: 1, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Pertolongan dan pembelaan dalam kebaikan", phrase: "menjadi penolong yang membawa kebaikan bagi banyak orang" },
+      { word: "Fikri", aksara: "ꦥ꦳ꦶꦏꦿꦶ", gender: "kakung", theme: "kebijaksanaan", posHint: 1, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Pemikiran cerdas, mendalam, dan bijaksana", phrase: "dianugerahi pemikiran cerdas dan jernih" },
+      { word: "Fahrul", aksara: "ꦥ꦳ꦃꦫꦸꦭ꧀", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Kebanggaan dan kemuliaan keluarga serta umat", phrase: "menjadi kebanggaan dan kemuliaan keluarga" },
+      { word: "Maulana", aksara: "ꦩꦻꦴꦭꦤ", gender: "kakung", theme: "kepemimpinan", posHint: 1, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Diftong)", meaning: "Pelindung, pemimpin, dan penuntun yang dihormati", phrase: "menjadi pelindung dan penuntun yang dihormati" },
+      { word: "Ghani", aksara: "ꦓꦤꦶ", gender: "kakung", theme: "kesejahteraan", posHint: 2, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Mahaprana/Rekan)", meaning: "Berkecukupan, kaya hati, dan dermawan", phrase: "dikaruniai kecukupan rezeki dan kedermawanan hati" },
+      { word: "Hakim", aksara: "ꦲ꦳ꦏꦶꦩ꧀", gender: "kakung", theme: "kebijaksanaan", posHint: 2, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Bijaksana, adil, dan arif dalam memutuskan perkara", phrase: "bersikap adil dan bijaksana dalam segala urusan" },
+      { word: "Ihsan", aksara: "ꦆꦃꦱꦤ꧀", gender: "kakung", theme: "keteguhan", posHint: 1, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa", meaning: "Kebaikan tulus dan kesempurnaan amal perbuatan", phrase: "senantiasa berbuat kebaikan dengan tulus ikhlas" },
+      { word: "Ilham", aksara: "ꦆꦭ꧀ꦲꦩ꧀", gender: "kakung", theme: "kebijaksanaan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa", meaning: "Petunjuk batin yang baik dan inspirasi luhur", phrase: "mendapat petunjuk batin dan inspirasi kebaikan" },
+      { word: "Fajar", aksara: "ꦥ꦳ꦗꦂ", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Cahaya pagi yang membawa harapan baru", phrase: "membawa cahaya harapan baru bagi lingkungan" },
+      { word: "Anisa", aksara: "ꦄꦤꦶꦱ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa", meaning: "Perempuan yang lembut hati, ramah, dan menyenangkan", phrase: "berhati lembut, ramah, dan menenangkan jiwa" },
+      { word: "Anis", aksara: "ꦄꦤꦶꦱ꧀", gender: "netral", theme: "keindahan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa", meaning: "Sahabat karib yang ramah, lembut budi, dan menyenangkan", phrase: "berpembawaan ramah, lembut hati, dan menyejukkan sesama" },
+      { word: "Laila", aksara: "ꦭꦻꦭ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Diftong)", meaning: "Keindahan malam yang tenang dan penuh pesona", phrase: "memiliki ketenangan dan pesona budi yang anggun" },
+      { word: "Laili", aksara: "ꦭꦻꦭꦶ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Diftong)", meaning: "Mutiara malam yang bercahaya lembut", phrase: "bercahaya lembut dan menyejukkan hati" },
+      { word: "Zahra", aksara: "ꦗ꦳ꦃꦫ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Bunga yang mekar indah dan bercahaya cemerlang", phrase: "mekar indah dan cemerlang akhlaknya" },
+      { word: "Aminah", aksara: "ꦄꦩꦶꦤꦃ", gender: "putri", theme: "keteguhan", posHint: 2, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa", meaning: "Dapat dipercaya, jujur, dan membawa rasa aman", phrase: "menjadi pribadi amanah yang dapat dipercaya" },
+      { word: "Fatimah", aksara: "ꦥ꦳ꦠꦶꦩꦃ", gender: "putri", theme: "keteguhan", posHint: 0, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Perempuan lembut yang terjaga kesucian budinya", phrase: "terjaga kesucian budi dan keteguhan imannya" },
+      { word: "Latifah", aksara: "ꦭꦠꦶꦥ꦳ꦃ", gender: "putri", theme: "kebijaksanaan", posHint: 2, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa (Paugeran Rekan)", meaning: "Lemah lembut, halus budi bahasanya, dan penuh kasih", phrase: "halus budi bahasanya serta penuh kasih sayang" },
+      { word: "Salsabila", aksara: "ꦱꦭ꧀ꦱꦧꦶꦭ", gender: "putri", theme: "kesejahteraan", posHint: 2, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa", meaning: "Mata air surga yang jernih dan menyejukkan", phrase: "mengalirkan kejernihan hati dan kesejukan hidup" },
+      { word: "Salma", aksara: "ꦱꦭ꧀ꦩ", gender: "putri", theme: "kesejahteraan", posHint: 1, sourceType: "arab", sourceLabel: "Adopsi Arab – Jawa", meaning: "Selamat, damai, dan terlindungi dari keburukan", phrase: "senantiasa selamat, damai, dan tenteram hidupnya" },
+
+      // --- ADOPSI & ADAPTASI EROPA - JAWA (PAUGERAN REKAN & TALING KAJ I 2021) ---
+      { word: "Kevin", aksara: "ꦏꦺꦥ꦳ꦶꦤ꧀", gender: "kakung", theme: "keindahan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Keltik/Irlandia)", meaning: "Rupawan pembawaannya, lembut hati, dan luhur budi", phrase: "berpembawaan rupawan, lembut hati, dan berbudi" },
+      { word: "Stefanus", aksara: "ꦱ꧀ꦠꦺꦥ꦳ꦤꦸꦱ꧀", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Yunani/Latin)", meaning: "Mahkota kehormatan dan kemenangan yang mulia", phrase: "menyandang mahkota kehormatan dan kemuliaan" },
+      { word: "Viktor", aksara: "ꦮ꦳ꦶꦏ꧀ꦠꦺꦴꦂ", gender: "kakung", theme: "kepemimpinan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Latin)", meaning: "Pemenang yang tangguh mengatasi rintangan", phrase: "menjadi pemenang yang tangguh dalam kebaikan" },
+      { word: "Yohanes", aksara: "ꦪꦺꦴꦲꦤꦼꦱ꧀", gender: "kakung", theme: "kesejahteraan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Yunani/Ibrani)", meaning: "Tuhan Maha Pengasih yang melimpahkan rahmat", phrase: "dilimpahi rahmat dan kasih karunia Tuhan" },
+      { word: "Fabian", aksara: "ꦥ꦳ꦧꦶꦪꦤ꧀", gender: "kakung", theme: "kesejahteraan", posHint: 1, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Latin)", meaning: "Penumbuh kemakmuran dan hasil kerja yang subur", phrase: "menumbuhkan kemakmuran dan keberhasilan" },
+      { word: "Gabriel", aksara: "ꦒꦧꦿꦶꦪꦺꦭ꧀", gender: "kakung", theme: "keteguhan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Ibrani/Latin)", meaning: "Kekuatan dari Tuhan yang membawa kabar baik", phrase: "dianugerahi kekuatan Tuhan dan pembawa kabar baik" },
+      { word: "Rafael", aksara: "ꦫꦥ꦳ꦲꦺꦭ꧀", gender: "kakung", theme: "kesejahteraan", posHint: 1, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Ibrani/Latin)", meaning: "Penyembuh dan penyejuk jiwa yang penuh berkah", phrase: "menjadi penyejuk dan penyembuh bagi sesama" },
+      { word: "Albertus", aksara: "ꦄꦭ꧀ꦧꦺꦂꦠꦸꦱ꧀", gender: "kakung", theme: "kebijaksanaan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Jermanik/Latin)", meaning: "Bangsawan budi yang cerdas dan cemerlang", phrase: "berbudi luhur, cerdas, dan cemerlang pikirannya" },
+      { word: "Felix", aksara: "ꦥ꦳ꦺꦭꦶꦑ꦳꧀", gender: "kakung", theme: "kesejahteraan", posHint: 1, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Latin)", meaning: "Beruntung, penuh sukacita, dan diberkahi", phrase: "selalu dilimpahi keberuntungan dan sukacita" },
+      { word: "Kayla", aksara: "ꦏꦻꦭ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Paugeran Diftong)", meaning: "Mahkota keindahan yang murni dan anggun", phrase: "menjadi mahkota keindahan yang murni dan anggun" },
+      { word: "Clara", aksara: "ꦏ꧀ꦭꦫ", gender: "putri", theme: "keindahan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Latin)", meaning: "Terang benderang, jernih hati, dan cemerlang", phrase: "berhati jernih dan bercahaya cemerlang" },
+      { word: "Kristina", aksara: "ꦏꦿꦶꦱ꧀ꦠꦶꦤ", gender: "putri", theme: "keteguhan", posHint: 0, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Yunani/Latin)", meaning: "Pembawa cahaya kasih dan kesetiaan iman", phrase: "teguh dalam kesetiaan iman dan kasih sayang" },
+      { word: "Helena", aksara: "ꦲꦺꦭꦺꦤ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Yunani)", meaning: "Obor cahaya terang yang memancarkan keindahan", phrase: "menjadi obor cahaya yang memancarkan keindahan" },
+      { word: "Silvia", aksara: "ꦱꦶꦭ꧀ꦮ꦳ꦶꦪ", gender: "putri", theme: "keindahan", posHint: 1, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Latin)", meaning: "Keasrian alam yang meneduhkan dan harmonis", phrase: "membawa kesejukan dan keharmonisan alami" },
+      { word: "Veronika", aksara: "ꦮ꦳ꦺꦫꦺꦴꦤꦶꦏ", gender: "putri", theme: "keteguhan", posHint: 1, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Yunani/Latin)", meaning: "Pembawa kemenangan sejati dan ketulusan hati", phrase: "membawa kemenangan sejati lewat ketulusan hati" },
+      { word: "Aurelia", aksara: "ꦎꦴꦫꦺꦭꦶꦪ", gender: "putri", theme: "kesejahteraan", posHint: 1, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Latin)", meaning: "Cahaya keemasan yang mulia dan bercahaya", phrase: "memancarkan kemuliaan bagai cahaya keemasan" },
+      { word: "Natasya", aksara: "ꦤꦠꦯ", gender: "putri", theme: "kesejahteraan", posHint: 2, sourceType: "eropa", sourceLabel: "Adopsi Eropa – Jawa (Slavia/Latin)", meaning: "Kelahiran harapan baru dan kebahagiaan hidup", phrase: "menjadi lambang harapan baru dan kebahagiaan" }
+    ];
+
+    /**
+     * ============================================================================
+     * PEMBERSIH TANDA BACA & PELESTARIAN ORTOGRAFI ARKAIS PADA AKSARA JAWA
+     * - Menghilangkan [꧋] di awal serta [꧈], [꧉] di akhir penulisan nama
+     * - Setiap aksara ꦱ yang mendapat pasangan ꦮ, ꦗ, ꦕ berubah menjadi ꦯ
+     * - Setiap aksara ꦱ yang mendapat pasangan ꦩ berubah menjadi ꦰ
+     * ============================================================================
+     */
+    function formatCleanAksaraName(rawAksara) {
+      if (!rawAksara) return "";
+      return String(rawAksara)
+        .replace(/^[꧋\s]+/g, "")
+        .replace(/[꧈꧉\s]+$/g, "")
+        .replace(/ꦱ꧀([ꦮꦗꦕ])/g, "ꦯ꧀$1")
+        .replace(/(?<!ꦏ꧀)ꦱ꧀ꦩ/g, "ꦰ꧀ꦩ")
+        .trim();
+    }
+
+    /**
+     * ============================================================================
+     * SINTESIS RANGKAIAN MAKNA & DOA DARI 3 UNSUR KATA
+     * ============================================================================
+     */
+    function synthesizePhilosophy(words, gender) {
+      const subject =
+        gender === "kakung"
+          ? "Sosok laki-laki yang diharapkan"
+          : gender === "putri"
+          ? "Sosok perempuan yang diharapkan"
+          : "Insan mulia yang diharapkan";
+
+      const p1 = words[0].phrase;
+      const p2 = words[1].phrase;
+      const p3 = words[2].phrase;
+
+      return `${subject} ${p1}, senantiasa ${p2}, serta ${p3}.`;
+    }
+
+    /**
+     * ============================================================================
+     * ALGORITMA PERANGKAI NAMA JAWA 3 KATA YANG HARMONIS
+     * ============================================================================
+     */
+    function getFilteredPool(gender, theme, sourceType) {
+      let pool = JAVANESE_LEXICON.filter(item => {
+        // Filter Gender: jika memilih kakung, izinkan kakung + netral; jika putri, izinkan putri + netral
+        const genderMatch =
+          gender === "all"
+            ? true
+            : gender === "netral"
+            ? item.gender === "netral"
+            : item.gender === gender || item.gender === "netral";
+
+        // Filter Sumber Pustaka
+        const sourceMatch =
+          sourceType === "all" ? true : item.sourceType === sourceType;
+
+        return genderMatch && sourceMatch;
+      });
+
+      // Jika filter tema dipilih spesifik, prioritaskan kata dengan tema tersebut (70% bobot)
+      // namun tetap menyertakan kata penutup harapan/kesejahteraan agar rangkaian 3 kata tetap alami
+      if (theme !== "all") {
+        const themePool = pool.filter(item => item.theme === theme);
+        if (themePool.length >= 6) {
+          return { primaryPool: themePool, secondaryPool: pool };
+        }
+      }
+
+      return { primaryPool: pool, secondaryPool: pool };
+    }
+
+    function buildSingleCombo(gender, theme, sourceType, customWordObj, existingSignatures) {
+      const { primaryPool, secondaryPool } = getFilteredPool(gender, theme, sourceType);
+
+      for (let attempt = 0; attempt < 40; attempt++) {
+        const chosen = [null, null, null];
+
+        // Jika pengguna menyisipkan kata pilihan sendiri pada posisi tertentu
+        if (customWordObj) {
+          chosen[customWordObj.pos] = customWordObj.entry;
+        }
+
+        for (let pos = 0; pos < 3; pos++) {
+          if (chosen[pos]) continue;
+
+          // Posisi 0 & 1 fokus ke primaryPool (tema pilihan), Posisi 2 boleh memadukan secondaryPool (doa akhir)
+          const activePool =
+            pos === 2 && theme !== "all" && Math.random() < 0.45
+              ? secondaryPool
+              : primaryPool;
+
+          // Utamakan kata yang memiliki kecocokan posisi (posHint) agar rima dan struktur Jawa otentik
+          let candidates = activePool.filter(
+            item =>
+              (item.posHint === pos || item.posHint === "any") &&
+              !chosen.some(c => c && c.word.toLowerCase() === item.word.toLowerCase())
+          );
+
+          if (candidates.length === 0) {
+            candidates = activePool.filter(
+              item => !chosen.some(c => c && c.word.toLowerCase() === item.word.toLowerCase())
+            );
+          }
+
+          // Hindari pengulangan huruf awal atau akhiran persis sama berturut-turut untuk keindahan fonetik
+          const prevWord = pos > 0 && chosen[pos - 1] ? chosen[pos - 1].word : "";
+          const phoneticCandidates = candidates.filter(c => {
+            if (!prevWord) return true;
+            return c.word.slice(0, 3).toLowerCase() !== prevWord.slice(0, 3).toLowerCase();
+          });
+
+          const finalCandidates =
+            phoneticCandidates.length > 0 ? phoneticCandidates : candidates;
+
+          chosen[pos] = pickRandom(finalCandidates);
+        }
+
+        const fullName = chosen.map(w => w.word).join(" ");
+        if (!existingSignatures.has(fullName)) {
+          existingSignatures.add(fullName);
+          return {
+            fullName,
+            words: chosen,
+            gender,
+            theme,
+            philosophy: synthesizePhilosophy(chosen, gender)
+          };
+        }
+      }
+
+      // Fallback aman
+      const fallbackWords = [primaryPool[0], primaryPool[1], primaryPool[2]];
+      return {
+        fullName: fallbackWords.map(w => w.word).join(" "),
+        words: fallbackWords,
+        gender,
+        theme,
+        philosophy: synthesizePhilosophy(fallbackWords, gender)
+      };
+    }
+
+    function generateNames() {
+      const gender = document.getElementById("filter-gender").value;
+      const theme = document.getElementById("filter-theme").value;
+      const sourceType = document.getElementById("filter-source").value;
+      const customRaw = document.getElementById("custom-word-input").value.trim();
+      const customPos = parseInt(document.getElementById("custom-word-pos").value, 10);
+
+      let customWordObj = null;
+      if (customRaw.length > 0) {
+        const cleanWord = capitalizeWord(customRaw.replace(/[^a-zA-Z\s'-]/g, ""));
+        if (cleanWord) {
+          const lowerClean = cleanWord.toLowerCase();
+
+          // 1. Cek kecocokan persis di database pustaka Jawa (Bausastra / Jawa Kuno)
+          const exactMatch = JAVANESE_LEXICON.find(
+            item => item.word.toLowerCase() === lowerClean
+          );
+
+          if (exactMatch) {
+            customWordObj = {
+              pos: customPos,
+              entry: {
+                ...exactMatch,
+                posHint: customPos,
+                sourceLabel: `${exactMatch.sourceLabel} • Kata Pilihan/Keluarga`,
+                phrase: `${exactMatch.phrase} sebagai penerus trah ${cleanWord}`
+              }
+            };
+          } else {
+            // 2. Analisis komponen leksikon Jawa yang terkandung dalam kata majemuk/nama keluarga
+            //    (misal: "Suryawijaya" -> mengandung unsur "Surya" & "Wijaya")
+            const rootMatches = JAVANESE_LEXICON.filter(
+              item =>
+                item.word.length >= 4 &&
+                lowerClean.includes(item.word.toLowerCase())
+            ).sort((a, b) => b.word.length - a.word.length);
+
+            // 3. Cek leksikon tambahan nama keluarga / unsur Jawa klasik yang umum dipakai
+            const FAMILY_ROOT_LEXICON = [
+              { root: "surya", meaning: "matahari yang menerangi kehidupan", phrase: "memancarkan terang kebaikan bagai surya", source: "Kamus Jawa Kuno (Zoetmulder)" },
+              { root: "kusumo", meaning: "bunga mulia lambang keluhuran", phrase: "menebarkan keharuman budi luhur", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "hadiningrat", meaning: "keluhuran dan kemuliaan dunia", phrase: "menjunjung keluhuran martabat keluarga", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "ningrat", meaning: "keluhuran budi dan martabat terhormat", phrase: "menjaga kehormatan dan keluhuran budi", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "wardhana", meaning: "pertumbuhan, kemakmuran, dan kemajuan", phrase: "tumbuh berkembang dalam kemakmuran dan kebajikan", source: "Kamus Jawa Kuno (Zoetmulder)" },
+              { root: "wardani", meaning: "kesucian hati dan kemuliaan budi", phrase: "memelihara kesucian hati dan kemuliaan", source: "Kamus Jawa Kuno (Zoetmulder)" },
+              { root: "pranata", meaning: "tatanan yang harmonis dan bijaksana", phrase: "menata kehidupan dengan bijaksana dan selaras", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "saputra", meaning: "putra utama penerus kebajikan keluarga", phrase: "menjadi putra utama penerus keluhuran keluarga", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "saputri", meaning: "putri utama permata keluhuran keluarga", phrase: "menjadi putri utama kebanggaan keluarga", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "putra", meaning: "anak laki-laki penerus harapan keluarga", phrase: "menjadi penerus harapan luhur keluarga", source: "Kamus Jawa Kuno (Zoetmulder)" },
+              { root: "putri", meaning: "anak perempuan permata hati keluarga", phrase: "menjadi permata hati penerus kemuliaan", source: "Kamus Jawa Kuno (Zoetmulder)" },
+              { root: "agung", meaning: "besar jiwa, luhur, dan mulia", phrase: "berjiwa besar, agung, dan mulia", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "bagas", meaning: "sehat kuat lahir batin serta tangguh", phrase: "dianugerahi kesehatan, kekuatan, dan ketangguhan", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "handayani", meaning: "memberi daya kekuatan dan dorongan kebaikan", phrase: "memberi daya semangat dan kebaikan bagi sesama", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "purnomo", meaning: "bulan purnama yang utuh dan bercahaya", phrase: "memancarkan cahaya keutuhan hidup bagai purnama", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "susilo", meaning: "berakhlak baik, beradab, dan santun", phrase: "beradab luhur dan santun perilaku hidupnya", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "sentosa", meaning: "damai, kuat, dan sejahtera lahir batin", phrase: "hidup damai, kuat, dan sejahtera", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "herlambang", meaning: "pertanda keluhuran dan kewibawaan", phrase: "menjadi pertanda keluhuran dan kewibawaan", source: "Bausastra Jawa (Poerwadarminta)" },
+              { root: "setiawan", meaning: "insan yang teguh memegang kesetiaan", phrase: "teguh memegang kesetiaan dan amanah", source: "Bausastra Jawa (Poerwadarminta)" }
+            ];
+
+            const familyMatch = FAMILY_ROOT_LEXICON.find(f => lowerClean.includes(f.root));
+
+            let autoMeaning = "";
+            let autoPhrase = "";
+            let autoSource = "Identitas Keluarga • Rangkaian Pustaka Jawa";
+
+            if (rootMatches.length >= 2) {
+              const m1 = rootMatches[0];
+              const m2 = rootMatches[1];
+              autoMeaning = `Paduan makna dari unsur "${m1.word}" (${m1.meaning.toLowerCase()}) dan "${m2.word}" (${m2.meaning.toLowerCase()})`;
+              autoPhrase = `${m1.phrase} sekaligus ${m2.phrase}`;
+              autoSource = `Analisis Leksikon: ${m1.sourceLabel} & ${m2.sourceLabel}`;
+            } else if (rootMatches.length === 1) {
+              const m1 = rootMatches[0];
+              autoMeaning = `Nama keluarga berunsur "${m1.word}" yang bermakna ${m1.meaning.toLowerCase()}`;
+              autoPhrase = `${m1.phrase} sebagai penerus trah ${cleanWord}`;
+              autoSource = `Analisis Unsur "${m1.word}" • ${m1.sourceLabel}`;
+            } else if (familyMatch) {
+              autoMeaning = `Nama keluarga berakar kata "${capitalizeWord(familyMatch.root)}" yang bermakna ${familyMatch.meaning}`;
+              autoPhrase = `${familyMatch.phrase} dalam naungan keluarga ${cleanWord}`;
+              autoSource = `Analisis Leksikon • ${familyMatch.source}`;
+            } else {
+              autoMeaning = `Nama keluarga "${cleanWord}" sebagai pengikat jati diri, asal-usul, dan keluhuran trah`;
+              autoPhrase = `menjaga kehormatan serta meneruskan keluhuran keluarga ${cleanWord}`;
+            }
+
+            customWordObj = {
+              pos: customPos,
+              entry: {
+                word: cleanWord,
+                aksara: latinToAksaraSimplified(cleanWord),
+                gender: gender === "all" ? "netral" : gender,
+                theme: theme === "all" ? "keteguhan" : theme,
+                posHint: customPos,
+                sourceType: "custom",
+                sourceLabel: autoSource,
+                meaning: autoMeaning,
+                phrase: autoPhrase
+              }
+            };
+          }
+        }
+      }
+
+      const usedSignatures = new Set();
+      currentMainCombo = buildSingleCombo(gender, theme, sourceType, customWordObj, usedSignatures);
+
+      currentAlternatives = [];
+      for (let i = 0; i < 5; i++) {
+        currentAlternatives.push(
+          buildSingleCombo(gender, theme, sourceType, customWordObj, usedSignatures)
+        );
+      }
+
+      renderMainResult();
+      renderAlternatives();
+    }
+
+    /**
+     * ============================================================================
+     * RENDER TAMPILAN NAMA UTAMA & ALTERNATIF
+     * ============================================================================
+     */
+    function renderMainResult() {
+      if (!currentMainCombo) return;
+
+      document.getElementById("main-full-name").textContent = currentMainCombo.fullName;
+      document.getElementById("main-aksara-jawa").textContent =
+        formatCleanAksaraName(buildScriptoContinuaAksara(currentMainCombo.words));
+
+      // Pills metadata
+      const metaContainer = document.getElementById("main-meta-pills");
+      metaContainer.innerHTML = `
+        <span class="pill">👤 ${GENDER_LABELS[currentMainCombo.gender] || "Harmoni"}</span>
+        <span class="pill">✦ Nuansa: ${THEME_LABELS[currentMainCombo.theme]}</span>
+      `;
+
+      // Rincian 3 Kata
+      const posNames = [
+        "Kata 1 • Nama Depan (Pembuka)",
+        "Kata 2 • Nama Tengah (Inti Budi)",
+        "Kata 3 • Nama Belakang (Harapan)"
+      ];
+
+      const breakdownContainer = document.getElementById("main-word-breakdown");
+      breakdownContainer.innerHTML = currentMainCombo.words
+        .map(
+          (w, idx) => `
+          <div class="word-box">
+            <div>
+              <div class="word-position">${posNames[idx]}</div>
+              <div class="word-term">${w.word}</div>
+              <div class="aksara-word-sub">${formatCleanAksaraName(w.aksara || latinToAksaraSimplified(w.word))}</div>
+              <p class="word-meaning">${w.meaning}.</p>
+            </div>
+            <div class="word-source">📚 ${w.sourceLabel}</div>
+          </div>
+        `
+        )
+        .join("");
+
+      document.getElementById("main-philosophy-text").textContent =
+        currentMainCombo.philosophy;
+    }
+
+    function renderAlternatives() {
+      const grid = document.getElementById("alternatives-grid");
+      grid.innerHTML = currentAlternatives
+        .map(
+          (alt, index) => `
+          <article class="alt-card">
+            <div>
+              <div class="alt-name">${alt.fullName}</div>
+              <div class="aksara-alt" title="Paugeran Simplified KAJ I 2021 (Scripto Continua)">
+                ${formatCleanAksaraName(buildScriptoContinuaAksara(alt.words))}
+              </div>
+              <div class="alt-breakdown">
+                <strong>${alt.words[0].word}</strong> (${alt.words[0].meaning.split(",")[0].toLowerCase()}) •
+                <strong>${alt.words[1].word}</strong> (${alt.words[1].meaning.split(",")[0].toLowerCase()}) •
+                <strong>${alt.words[2].word}</strong> (${alt.words[2].meaning.split(",")[0].toLowerCase()})
+              </div>
+              <p class="alt-meaning">"${alt.philosophy}"</p>
+            </div>
+            <div class="alt-actions">
+              <button type="button" class="btn-sm" onclick="promoteAlternative(${index})">
+                ⬆ Jadikan Utama
+              </button>
+              <button type="button" class="btn-sm" onclick="saveComboToFavorites(currentAlternatives[${index}])">
+                ★ Simpan
+              </button>
+              <button type="button" class="btn-sm" onclick="copyComboText(currentAlternatives[${index}])">
+                📋 Salin
+              </button>
+            </div>
+          </article>
+        `
+        )
+        .join("");
+    }
+
+    function promoteAlternative(index) {
+      const selected = currentAlternatives[index];
+      if (!selected) return;
+      const previousMain = currentMainCombo;
+      currentMainCombo = selected;
+      currentAlternatives[index] = previousMain;
+      renderMainResult();
+      renderAlternatives();
+      document.getElementById("result-area").scrollIntoView({ behavior: "smooth" });
+      showToast(`✦ "${selected.fullName}" dipilih sebagai Nama Utama!`);
+    }
+
+    function formatComboForShare(combo) {
+      const aksaraFull = formatCleanAksaraName(buildScriptoContinuaAksara(combo.words));
+      const details = combo.words
+        .map((w, i) => `  ${i + 1}. ${w.word} (${formatCleanAksaraName(w.aksara || latinToAksaraSimplified(w.word))}): ${w.meaning} [${w.sourceLabel}]`)
+        .join("\n");
+      return `NAMA JAWA: ${combo.fullName}\nAKSARA JAWA (KAJ I 2021 - Scripto Continua): ${aksaraFull}\n\nRincian Kata:\n${details}\n\nArti & Doa Rangkaian:\n${combo.philosophy}`;
+    }
+
+    function copyComboText(combo) {
+      copyTextOffline(formatComboForShare(combo));
+    }
+
+    /**
+     * ============================================================================
+     * FITUR PENYIMPANAN FAVORIT (LOCALSTORAGE & EKSPOR TXT OFFLINE)
+     * ============================================================================
+     */
+    function loadFavorites() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        favorites = raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        favorites = [];
+      }
+      updateFavBadge();
+      renderFavorites();
+    }
+
+    function persistFavorites() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
+      } catch (e) {
+        showToast("Penyimpanan lokal peramban penuh.");
+      }
+      updateFavBadge();
+      renderFavorites();
+    }
+
+    function updateFavBadge() {
+      document.getElementById("fav-count-badge").textContent = favorites.length;
+    }
+
+    function saveComboToFavorites(combo) {
+      if (!combo) return;
+      const exists = favorites.some(f => f.fullName === combo.fullName);
+      if (exists) {
+        showToast(`"${combo.fullName}" sudah ada di daftar favorit.`);
+        return;
+      }
+      favorites.unshift({
+        ...combo,
+        savedAt: new Date().toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        })
+      });
+      persistFavorites();
+      showToast(`★ "${combo.fullName}" disimpan ke Favorit!`);
+    }
+
+    function removeFavorite(index) {
+      const removed = favorites.splice(index, 1)[0];
+      persistFavorites();
+      if (removed) {
+        showToast(`"${removed.fullName}" dihapus dari Favorit.`);
+      }
+    }
+
+    function renderFavorites() {
+      const container = document.getElementById("favorites-container");
+      if (favorites.length === 0) {
+        container.innerHTML = `
+          <div class="fav-empty">
+            Belum ada rangkaian nama yang disimpan.<br />
+            Klik tombol <strong>"★ Simpan ke Favorit"</strong> pada hasil nama untuk menyimpannya di perangkat ini.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = favorites
+        .map(
+          (fav, idx) => `
+          <div class="fav-item">
+            <div style="flex: 1; min-width: 240px;">
+              <div style="font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; color: var(--sogan-dark);">
+                ${fav.fullName}
+              </div>
+              <div class="aksara-alt" style="margin: 0.35rem 0 0.5rem;">
+                ${formatCleanAksaraName(buildScriptoContinuaAksara(fav.words))}
+              </div>
+              <div style="font-size: 0.82rem; color: var(--sogan-muted); margin-bottom: 0.45rem;">
+                Disimpan pada ${fav.savedAt || "hari ini"} •
+                ${fav.words.map(w => `${w.word} (${w.meaning.split(",")[0].toLowerCase()})`).join(" • ")}
+              </div>
+              <div style="font-size: 0.92rem; color: #3B281C; font-style: italic;">
+                "${fav.philosophy}"
+              </div>
+            </div>
+            <div class="fav-item-actions" style="display: flex; gap: 0.45rem;">
+              <button type="button" class="btn-sm" onclick="copyComboText(favorites[${idx}])">
+                📋 Salin
+              </button>
+              <button type="button" class="btn-sm btn-danger" onclick="removeFavorite(${idx})">
+                ✕ Hapus
+              </button>
+            </div>
+          </div>
+        `
+        )
+        .join("");
+    }
+
+    function triggerPrintOrPdf(mode) {
+      if (mode === "favorites" && favorites.length === 0) {
+        showToast("Daftar favorit masih kosong untuk dicetak atau disimpan ke PDF.");
+        return;
+      }
+
+      const originalTitle = document.title;
+      const fileBaseName =
+        mode === "main" && currentMainCombo
+          ? `Nama-Jawa-${currentMainCombo.fullName.replace(/\s+/g, "-")}`
+          : "Daftar-Nama-Jawa-Tersimpan";
+
+      document.title = fileBaseName;
+
+      // Bangun dokumen HTML bersih siap cetak / Save as PDF (100% offline)
+      const buildPrintableHtml = () => {
+        const items =
+          mode === "main" && currentMainCombo
+            ? [currentMainCombo, ...currentAlternatives]
+            : favorites;
+
+        const cardsHtml = items
+          .map((item, idx) => {
+            const label =
+              mode === "main"
+                ? idx === 0
+                  ? "REKOMENDASI UTAMA"
+                  : `ALTERNATIF ${idx}`
+                : `NAMA TERSIMPAN #${idx + 1}`;
+            const aksaraFull = formatCleanAksaraName(
+              buildScriptoContinuaAksara(item.words)
+            );
+            const wordsHtml = item.words
+              .map(
+                (w, i) => `
+                <div class="w-col">
+                  <div class="w-pos">Kata ${i + 1}</div>
+                  <div class="w-lat">${w.word}</div>
+                  <div class="w-aks">${formatCleanAksaraName(
+                    w.aksara || latinToAksaraSimplified(w.word)
+                  )}</div>
+                  <div class="w-mean">${w.meaning}.</div>
+                  <div class="w-src">${w.sourceLabel}</div>
+                </div>`
+              )
+              .join("");
+
+            return `
+              <section class="p-card ${idx === 0 && mode === "main" ? "p-main" : ""}">
+                <div class="p-badge">${label}</div>
+                <h2 class="p-name">${item.fullName}</h2>
+                <div class="p-aksara">${aksaraFull}</div>
+                <div class="w-grid">${wordsHtml}</div>
+                <div class="p-phil">
+                  <strong>Rangkaian Makna &amp; Doa:</strong> ${item.philosophy}
+                </div>
+              </section>`;
+          })
+          .join("");
+
+        return `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>${fileBaseName}</title>
+  <style>
+    body { font-family: Georgia, serif; color: #2C1A11; margin: 24px; line-height: 1.5; }
+    header { text-align: center; border-bottom: 2px solid #B8860B; padding-bottom: 12px; margin-bottom: 20px; }
+    header h1 { margin: 0; font-size: 22px; letter-spacing: 1px; }
+    header p { margin: 4px 0 0; font-size: 13px; color: #6D442E; }
+    .p-card { border: 1px solid #DECDB7; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; page-break-inside: avoid; }
+    .p-main { border: 2px solid #B8860B; background: #FFFDF8; }
+    .p-badge { font-family: sans-serif; font-size: 10px; font-weight: bold; color: #B8860B; letter-spacing: 1px; }
+    .p-name { margin: 4px 0; font-size: 21px; }
+    .p-aksara { font-size: 19px; color: #4A2C1D; background: #FAF3E4; padding: 6px 10px; border-radius: 6px; margin-bottom: 10px; }
+    .w-grid { display: table; width: 100%; table-layout: fixed; margin-bottom: 10px; }
+    .w-col { display: table-cell; border: 1px solid #EFE2C6; padding: 8px; vertical-align: top; }
+    .w-pos { font-family: sans-serif; font-size: 10px; color: #8C6A56; text-transform: uppercase; }
+    .w-lat { font-weight: bold; font-size: 14px; margin: 2px 0; }
+    .w-aks { font-size: 14px; color: #6D442E; margin-bottom: 4px; }
+    .w-mean { font-family: sans-serif; font-size: 12px; margin-bottom: 4px; }
+    .w-src { font-family: sans-serif; font-size: 10px; color: #9E7208; }
+    .p-phil { font-size: 13px; background: #FAF5EA; border-left: 4px solid #B8860B; padding: 8px 12px; }
+    @media print { body { margin: 10mm; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BUAT NAMA JAWA — ASMA KINARYA JAPA</h1>
+    <p>Paugeran Simplified KAJ I Yogyakarta 2021 (Scripto Continua) • Pustaka Bausastra &amp; Jawa Kuno</p>
+  </header>
+  ${cardsHtml}
+  <script>
+    window.onload = function() {
+      setTimeout(function() { window.print(); }, 200);
+    };
+  <\/script>
+</body>
+</html>`;
+      };
+
+      const printableHtml = buildPrintableHtml();
+
+      // 1. Coba cetak melalui hidden iframe agar bebas gangguan UI & bekerja di mode preview
+      try {
+        let printFrame = document.getElementById("offline-print-frame");
+        if (printFrame) printFrame.remove();
+
+        printFrame = document.createElement("iframe");
+        printFrame.id = "offline-print-frame";
+        printFrame.style.position = "fixed";
+        printFrame.style.right = "0";
+        printFrame.style.bottom = "0";
+        printFrame.style.width = "0";
+        printFrame.style.height = "0";
+        printFrame.style.border = "0";
+        document.body.appendChild(printFrame);
+
+        const frameDoc = printFrame.contentWindow.document;
+        frameDoc.open();
+        frameDoc.write(printableHtml);
+        frameDoc.close();
+
+        printFrame.contentWindow.focus();
+        printFrame.contentWindow.print();
+        showToast("🖨 Membuka dialog Cetak / Save as PDF...");
+      } catch (err) {
+        // 2. Fallback langsung menggunakan window.print()
+        try {
+          window.print();
+        } catch (e) {
+          // 3. Fallback unduh berkas HTML siap cetak PDF jika iframe sandbox melarang print()
+          const blob = new Blob([printableHtml], { type: "text/html;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${fileBaseName}-Siap-Cetak-PDF.html`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast("📄 Dokumen siap cetak/PDF diunduh (buka lalu tekan Ctrl+P → Save as PDF).");
+        }
+      } finally {
+        setTimeout(() => {
+          document.title = originalTitle;
+        }, 600);
+      }
+    }
+
+    function exportFavoritesTxt() {
+      if (favorites.length === 0) {
+        showToast("Daftar favorit masih kosong untuk diunduh.");
+        return;
+      }
+
+      const header =
+        "========================================================\n" +
+        "DAFTAR NAMA JAWA PILIHAN (BUAT NAMA JAWA - FULL OFFLINE)\n" +
+        "Rujukan: Bausastra Jawa & Kamus Jawa Kuno (Zoetmulder)\n" +
+        "========================================================\n\n";
+
+      const body = favorites
+        .map((fav, idx) => `[${idx + 1}] ${formatComboForShare(fav)}\n--------------------------------------------------------`)
+        .join("\n\n");
+
+      const blob = new Blob([header + body], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Daftar-Nama-Jawa-Pilihan.txt";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast("⬇ File Daftar-Nama-Jawa-Pilihan.txt berhasil diunduh!");
+    }
+
+    /**
+     * ============================================================================
+     * GLOSARIUM / KAMUS PUSTAKA TERVALIDASI
+     * ============================================================================
+     */
+    function renderGlossary() {
+      const searchQuery = document.getElementById("glossary-search").value.trim().toLowerCase();
+      const genderFilter = document.getElementById("glossary-gender-filter").value;
+      const sourceFilter = document.getElementById("glossary-source-filter").value;
+
+      const filtered = JAVANESE_LEXICON.filter(item => {
+        const matchText =
+          !searchQuery ||
+          item.word.toLowerCase().includes(searchQuery) ||
+          item.meaning.toLowerCase().includes(searchQuery);
+        const matchGender = genderFilter === "all" || item.gender === genderFilter;
+        const matchSource = sourceFilter === "all" || item.sourceType === sourceFilter;
+        return matchText && matchGender && matchSource;
+      }).sort((a, b) => a.word.localeCompare(b.word));
+
+      document.getElementById("glossary-result-info").textContent =
+        `Menampilkan ${filtered.length} dari ${JAVANESE_LEXICON.length} kosakata pustaka Jawa tervalidasi.`;
+
+      const listEl = document.getElementById("glossary-list");
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<p style="color: var(--sogan-muted); font-style: italic;">Tidak ada kata yang cocok dengan pencarian Anda.</p>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered
+        .map(
+          item => `
+          <div class="lexicon-item">
+            <div>
+              <div class="lexicon-top">
+                <div>
+                  <span class="lexicon-word">${item.word}</span>
+                  <div class="aksara-word-sub" style="margin-bottom: 0;">${formatCleanAksaraName(item.aksara)}</div>
+                </div>
+                <span class="lexicon-gender">${
+                  item.gender === "kakung"
+                    ? "Kakung"
+                    : item.gender === "putri"
+                    ? "Putri"
+                    : "Netral"
+                }</span>
+              </div>
+              <p class="lexicon-meaning">${item.meaning}.</p>
+            </div>
+            <div class="lexicon-footer">📚 ${item.sourceLabel}</div>
+          </div>
+        `
+        )
+        .join("");
+    }
+
+    /**
+     * ============================================================================
+     * INISIALISASI EVENT & TAB NAVIGASI
+     * ============================================================================
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+      // Perbarui badge jumlah kosakata tertanam secara aman
+      const totalVocabBadge = document.getElementById("total-vocab-badge");
+      if (totalVocabBadge) {
+        totalVocabBadge.textContent = JAVANESE_LEXICON.length;
+      }
+      const glossaryCountBadge = document.getElementById("glossary-count-badge");
+      if (glossaryCountBadge) {
+        glossaryCountBadge.textContent = JAVANESE_LEXICON.length;
+      }
+
+      // Navigasi Tab
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const tabPanels = document.querySelectorAll(".tab-panel");
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-tab");
+          tabButtons.forEach(b => {
+            b.classList.remove("active");
+            b.setAttribute("aria-selected", "false");
+          });
+          tabPanels.forEach(p => p.classList.remove("active"));
+
+          btn.classList.add("active");
+          btn.setAttribute("aria-selected", "true");
+          document.getElementById(`tab-${target}`).classList.add("active");
+        });
+      });
+
+      // Tombol Generator
+      document.getElementById("btn-generate").addEventListener("click", generateNames);
+      document.getElementById("btn-regenerate").addEventListener("click", generateNames);
+
+      // Tombol Simpan & Salin Utama
+      document.getElementById("btn-save-main").addEventListener("click", () => {
+        saveComboToFavorites(currentMainCombo);
+      });
+      document.getElementById("btn-copy-main").addEventListener("click", () => {
+        if (currentMainCombo) copyComboText(currentMainCombo);
+      });
+      document.getElementById("btn-print-main").addEventListener("click", () => {
+        triggerPrintOrPdf("main");
+      });
+
+      // Filter Glosarium
+      document.getElementById("glossary-search").addEventListener("input", renderGlossary);
+      document.getElementById("glossary-gender-filter").addEventListener("change", renderGlossary);
+      document.getElementById("glossary-source-filter").addEventListener("change", renderGlossary);
+
+      // Tombol Favorit
+      document.getElementById("btn-print-favs").addEventListener("click", () => {
+        triggerPrintOrPdf("favorites");
+      });
+      document.getElementById("btn-export-txt").addEventListener("click", exportFavoritesTxt);
+      document.getElementById("btn-clear-favs").addEventListener("click", () => {
+        if (favorites.length === 0) return;
+        favorites = [];
+        persistFavorites();
+        showToast("Semua daftar nama favorit telah dibersihkan.");
+      });
+
+      // Muat data awal
+      loadFavorites();
+      renderGlossary();
+      generateNames();
+    });
+  </script>
+</body>
+</html>
